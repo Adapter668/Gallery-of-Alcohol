@@ -2,11 +2,14 @@
 #include "constants.h"
 #include <glm/gtx/transform.hpp>
 
-Camera::Camera() :	
-	position(0.0f, 1.0f, 0.0f), 
-	viewDirection(0.0f, 0.0f, 2.0f), 
-	UP(0.0f, 1.0f, 0.0f) {
-
+Camera::Camera() :
+        position(0.0f, 1.0f, 0.0f),
+        viewDirection(0.0f, 0.0f, 2.0f),
+        UP(0.0f, 1.0f, 0.0f)
+//position(0.0f, 5.0f, 0.0f),
+//viewDirection(0.0f, -2.5f, 2.0f),
+//UP(0.0f, 1.0f, 0.0f)
+{
 }
 
 glm::mat4 Camera::getWorldToViewMatrix() const {

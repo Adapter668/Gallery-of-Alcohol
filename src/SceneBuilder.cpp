@@ -1,11 +1,13 @@
 #include "SceneBuilder.h"
+#include "lodepng.h"
 
-SceneBuilder::SceneBuilder()
-{
+SceneBuilder::SceneBuilder()  {
 }
 
-SceneBuilder::~SceneBuilder()
-{
+SceneBuilder::~SceneBuilder()  {
+}
+
+void SceneBuilder::addModelToArrayAll_Models(mat4 V, vec3 rotate, vec3 transform, vec3 scale) {
 }
 
 void SceneBuilder::LoadModels()
@@ -104,12 +106,34 @@ void SceneBuilder::InProgress(mat4 V)
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 
 	//labirynt
-	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(4.0f, 0.5f, -1.6f), vec3(2.5f, 0.5f, 0.1f))));
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(4.0f, 0.5f, -1.6f), vec3(2.5f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(1.5f, 0.5f, -3.0f), vec3(0.1f, 0.5f, 1.5f))));
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(1.5f, 0.5f, -3.0f), vec3(0.1f, 2.0f, 1.5f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(3.5f, 0.5f, -4.4f), vec3(2.0f, 0.5f, 0.1f))));
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(3.5f, 0.5f, -4.4f), vec3(2.0f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(5.5f, 0.5f, -3.0f), vec3(2.5f, 0.5f, 0.1f))));
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(5.5f, 0.5f, -3.0f), vec3(2.5f, 2.0f, 0.1f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+
+	// room:
+	// floor
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.1f,  0.0f), vec3(8.0f, 0.0f, 6.0f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	// main walls
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f,  6.0f), vec3(8.0f, 2.0f, 0.1f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f,  -6.0f), vec3(8.0f, 2.0f, 0.1f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(8.0f, 0.0f,  0.0f), vec3(0.1f, 2.0f, 6.0f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(-8.0f, 0.0f,  0.0f), vec3(0.1f, 2.0f, 6.0f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	// inner walls
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.25f, 0.0f,  -3.0f), vec3(0.1f, 2.0f, 3.0f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.0f, 0.0f,  0.0f), vec3(2.0f, 2.0f, 0.1f))));
+	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f,  4.0f), vec3(0.1f, 2.0f, 2.0f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 }

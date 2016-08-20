@@ -83,16 +83,15 @@ void cursor_callback(GLFWwindow *window, double x, double y) {
 
 // INITIALIZATION CODE PROCEDURE
 void initOpenGLProgram(GLFWwindow* window) {
-	
-	roomMesh.LoadMesh("room with tekxture.obj", outVert, outNorm, outUv);
+	//roomMesh.LoadMesh("room with tekxture.obj", outVert, outNorm, outUv);
 	glBufferData(GL_ARRAY_BUFFER, outVert.size() * sizeof(glm::vec3), &outVert[0], GL_STATIC_DRAW);
 	
-	sceneBuilder.LoadModels();	// loading another things
+	sceneBuilder.LoadModels();	                // loading another models (cube)
 	//************Place any code here that needs to be executed once, at the program start************
-	glClearColor(0, 30, 0, 1); // Clear background with black color
-	glEnable(GL_LIGHTING); // Turn on lighting mode
-	glEnable(GL_LIGHT0); //Turn on default light 0
-	glEnable(GL_DEPTH_TEST); //Turn on hidden surface removal via depth buffer
+	glClearColor(0, 30, 0, 1);                      // Clear background with black color
+	glEnable(GL_LIGHTING);                     // Turn on lighting mode
+	glEnable(GL_LIGHT0);                           //Turn on default light 0
+	glEnable(GL_DEPTH_TEST);                //Turn on hidden surface removal via depth buffer
 	glEnable(GL_NORMALIZE);
 
 	glfwSetErrorCallback(error_callback);	//Register error processing callback procedure
@@ -100,14 +99,13 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glfwSetCursorPosCallback(window, cursor_callback);
 	glfwSetMouseButtonCallback(window, mouse_button_callback); // register the mouse callback procedure
 
+    /*
 	//----------------------------------------------------------------------------------------------------
 	//Reading and import image � place in initOpenGLProgram
 	//Reading into CPU memory
 	std::vector<unsigned char> image; //Allocate a vector for image data
 	unsigned width, height; //Variables for image size
-
 	//Read texture image
-
 	unsigned error = lodepng::decode(image, width, height, "bricks.png");
 	//Import into graphics card memory
 	glGenTextures(1, &tex); //Initialize one handle
@@ -118,7 +116,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glEnable(GL_TEXTURE_2D);
-
+    */
 
 	//----------------------------------------------------------------------------------------------------
 }
@@ -179,8 +177,9 @@ int main(void) {
 	}
 	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
-	window = glfwCreateWindow(mode->width, mode->height, "Alcohol Gallery", primaryMonitor, NULL);  //Create a window 500pxx500px titled "OpenGL" and an OpenGL context associated with it. 
-	if (!window) {			//If no window is opened then close the program
+	//window = glfwCreateWindow(mode->width, mode->height, "Alcohol Gallery", primaryMonitor, NULL);  //Create a window 500pxx500px titled "OpenGL" and an OpenGL context associated with it.
+    window = glfwCreateWindow(800, 600, "Alcohol Gallery", NULL, NULL);
+    if (!window) {			//If no window is opened then close the program
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
