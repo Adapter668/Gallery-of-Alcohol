@@ -10,7 +10,7 @@ SceneBuilder::~SceneBuilder()
 
 void SceneBuilder::LoadModels()
 {
-	objects[0].mesh.LoadMesh("cube.obj", objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	objects[CUBE].mesh.LoadMesh("cube.obj", objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 }
 
 void SceneBuilder::DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV)
@@ -69,7 +69,7 @@ void SceneBuilder::InProgress(mat4 V)
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(-6.5f, 0.4f, -4.0f), vec3(0.2f, 0.4f, 2.0f)))); //bar
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 
-	//s�upki w ma�ym pokoju
+	//slupki w malym pokoju
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(4.0f, 0.3f, 3.5f), vec3(0.07f, 0.3f, 0.07f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(4.0f, 0.4f, 5.0f), vec3(0.07f, 0.4f, 0.07f))));

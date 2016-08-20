@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include "constants.h"
 #include "MeshLoader.h"
 
 using namespace glm;
