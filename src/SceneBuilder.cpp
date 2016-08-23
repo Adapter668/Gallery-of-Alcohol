@@ -13,6 +13,16 @@ void SceneBuilder::addModelToArrayAll_Models(mat4 V, vec3 rotate, vec3 transform
 void SceneBuilder::LoadModels()
 {
 	objects[CUBE].mesh.LoadMesh("cube.obj", objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+
+    //Reading and import image and place in initOpenGLProgram
+    //Reading into CPU memory
+    //Read texture image
+    unsigned error0 = lodepng::decode(image0, width0, height0, "wood.png");
+    unsigned error1 = lodepng::decode(image1, width1, height1, "brick.png");
+    unsigned error2 = lodepng::decode(image2, width2, height2, "niebieski.png");
+    //Import into graphics card memory
+    glGenTextures(1, &tex); //Initialize one handle
+    glBindTexture(GL_TEXTURE_2D, tex); //Activate handle
 }
 
 void SceneBuilder::DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV)
@@ -42,10 +52,11 @@ mat4 SceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s)
 
 void SceneBuilder::InProgress(mat4 V)
 {
+    TextureTryToDo(tex, image0, width0, height0);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(-3.0f, 0.3f, 5.7f), vec3(2.0f, 0.3f, 0.3f)))); //naro�nik d�u�sza �ciana
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(-1.3f, 0.3f, 4.5f), vec3(0.3f, 0.3f, 1.0f)))); //naro�nik kr�tsza �ciana
-	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+    DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(-6.0f, 0.4f, 3.0f), vec3(0.3f, 0.4f, 0.3f)))); //st� w pokoju z naro�nikiem
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 1.5f, 5.6f), vec3(1.0f, 0.05f, 0.2f)))); //g�rna p�ka w korytarzu 
@@ -115,10 +126,14 @@ void SceneBuilder::InProgress(mat4 V)
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(5.5f, 0.5f, -3.0f), vec3(2.5f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 
+    glDeleteTextures(1, &tex);
 	// room:
+    TextureTryToDo(tex, image2, width2, height2);
 	// floor
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.1f,  0.0f), vec3(8.0f, 0.0f, 6.0f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+
+    TextureTryToDo(tex, image1, width1, height1);
 	// main walls
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f,  6.0f), vec3(8.0f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
@@ -136,4 +151,18 @@ void SceneBuilder::InProgress(mat4 V)
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f,  4.0f), vec3(0.1f, 2.0f, 2.0f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+
+    glDeleteTextures(1, &tex);
+}
+
+
+void SceneBuilder::TextureTryToDo(GLuint tex, std::vector<unsigned char> image, unsigned width, unsigned height) {
+    //Import image into memory associated with the handle
+    glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
+                 GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image.data());
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_TEXTURE_2D);
+
 }

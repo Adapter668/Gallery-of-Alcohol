@@ -31,7 +31,7 @@ short positionToGo = NONE;		// Helps moving camera
 //---RUBISH---
 mat4 projectionMatrix;
 mat4 roomModel;
-GLuint tex; 
+//GLuint tex;
 
 SceneBuilder sceneBuilder; 
 MeshLoader roomMesh;
@@ -73,7 +73,7 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		// TODO choose buttle to drink
+		// TODO choose bottle to drink
 	}	
 }
 
@@ -99,25 +99,32 @@ void initOpenGLProgram(GLFWwindow* window) {
 	glfwSetCursorPosCallback(window, cursor_callback);
 	glfwSetMouseButtonCallback(window, mouse_button_callback); // register the mouse callback procedure
 
-    /*
+/*
 	//----------------------------------------------------------------------------------------------------
 	//Reading and import image � place in initOpenGLProgram
 	//Reading into CPU memory
-	std::vector<unsigned char> image; //Allocate a vector for image data
-	unsigned width, height; //Variables for image size
+	std::vector<unsigned char> image0, image1; //Allocate a vector for image data
+	unsigned width0, height0, width1, height1 ; //Variables for image size
 	//Read texture image
-	unsigned error = lodepng::decode(image, width, height, "bricks.png");
+	unsigned error0 = lodepng::decode(image0, width0, height0, "oldwood.png");
+    unsigned error1 = lodepng::decode(image1, width1, height1, "wood.png");
 	//Import into graphics card memory
-	glGenTextures(1, &tex); //Initialize one handle
-	glBindTexture(GL_TEXTURE_2D, tex); //Activate handle
+	glGenTextures(1, &tex0); //Initialize one handle
+	glBindTexture(GL_TEXTURE_2D, tex0); //Activate handle
+    glGenTextures(1, &tex1);
+    glBindTexture(GL_TEXTURE_2D, tex1);
 	//Import image into memory associated with the handle
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image.data());
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, width0, height0, 0,
+		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image0.data());
+
+    glTexImage2D(GL_TEXTURE_2D, 0, 4, width1, height1, 0,
+                 GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image1.data());
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glEnable(GL_TEXTURE_2D);
-    */
 
+*/
 	//----------------------------------------------------------------------------------------------------
 }
 
@@ -148,7 +155,7 @@ void drawScene(GLFWwindow* window) {
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 	
 	//**************CAMERAs END****************************************
-
+/*
 	// DRAWING CODE:
 	glEnableClientState(GL_VERTEX_ARRAY); //Tell OpenGL to use vertex coordinate array for drawing
 	//glEnableClientState(GL_COLOR_ARRAY); //Tell OpenGL to use color array for drawing
@@ -165,7 +172,7 @@ void drawScene(GLFWwindow* window) {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	//-------------------------------------------------------
-	
+	*/
 	sceneBuilder.InProgress(camera.getWorldToViewMatrix());		//glLoad, draw
 	glfwSwapBuffers(window);				//Copy back buffer into front buffer
 }
@@ -201,7 +208,7 @@ int main(void) {
 	}
 
 	//**********DELETING TEXTURES: ******************
-	glDeleteTextures(1, &tex);
+    //glDeleteTextures(1, &tex);
 
 	glfwDestroyWindow(window);			//Delete OpenGL context and the window.
 	glfwTerminate();					//Free GLFW resources
