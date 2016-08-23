@@ -125,7 +125,6 @@ void SceneBuilder::InProgress(mat4 V)
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(5.5f, 0.5f, -3.0f), vec3(2.5f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-
     glDeleteTextures(1, &tex);
 	// room:
     TextureTryToDo(tex, image2, width2, height2);
