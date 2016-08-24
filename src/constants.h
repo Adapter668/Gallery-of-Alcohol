@@ -14,6 +14,4 @@ const float PI = 3.141592653589793f;
 #define CUBE                                    0
 #define WIDTH_OF_CUBE             2.0f
 
-	
-
 #endif
