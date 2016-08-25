@@ -1,11 +1,7 @@
 #include "SceneBuilder.h"
 #include "lodepng.h"
 
-SceneBuilder::SceneBuilder()  {
-}
-
-SceneBuilder::~SceneBuilder()  {
-}
+vector<cuboid> SceneBuilder::all_models_coordinates;
 
 void SceneBuilder::LoadModelsToMemory()
 {
@@ -48,33 +44,33 @@ mat4 SceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s)
 
     // coordinates of object:
     // back
-    object.back_1.x = (t.x + WIDTH_OF_CUBE / 2) * s.x;
-    object.back_1.y = (t.y + WIDTH_OF_CUBE / 2) * s.y;
-    object.back_1.z = (t.z + WIDTH_OF_CUBE / 2) * s.z;
-    object.back_2.x = (t.x - WIDTH_OF_CUBE / 2) * s.x;
-    object.back_2.y = (t.y + WIDTH_OF_CUBE / 2) * s.y;
-    object.back_2.z = (t.z + WIDTH_OF_CUBE / 2) * s.z;
-    object.back_3.x = (t.x - WIDTH_OF_CUBE / 2) * s.x;
-    object.back_3.y = (t.y - WIDTH_OF_CUBE / 2) * s.y;
-    object.back_3.z = (t.z + WIDTH_OF_CUBE / 2) * s.z;
-    object.back_4.x = (t.x + WIDTH_OF_CUBE / 2) * s.x;
-    object.back_4.y = (t.y - WIDTH_OF_CUBE / 2) * s.y;
-    object.back_4.z = (t.z + WIDTH_OF_CUBE / 2) * s.z;
+    object.back_1.x = t.x + s.x * WIDTH_OF_CUBE/2;
+    object.back_1.y = t.y + s.y * WIDTH_OF_CUBE/2;
+    object.back_1.z = t.z + s.z * WIDTH_OF_CUBE/2;
+    object.back_2.x = t.x - s.x * WIDTH_OF_CUBE/2;
+    object.back_2.y = t.y + s.y * WIDTH_OF_CUBE/2;
+    object.back_2.z = t.z + s.z * WIDTH_OF_CUBE/2;
+    object.back_3.x = t.x  - s.x * WIDTH_OF_CUBE/2;
+    object.back_3.y = t.y - s.y * WIDTH_OF_CUBE/2;
+    object.back_3.z = t.z + s.z * WIDTH_OF_CUBE/2;
+    object.back_4.x = t.x + s.x * WIDTH_OF_CUBE/2;
+    object.back_4.y = t.y  - s.y * WIDTH_OF_CUBE/2;
+    object.back_4.z = t.z + s.z * WIDTH_OF_CUBE/2;
     // front
-    object.front_1.x = (t.x + WIDTH_OF_CUBE / 2) * s.x;
-    object.front_1.y = (t.y + WIDTH_OF_CUBE / 2) * s.y;
-    object.front_1.z = (t.z - WIDTH_OF_CUBE / 2) * s.z;
-    object.front_2.x = (t.x - WIDTH_OF_CUBE / 2) * s.x;
-    object.front_2.y = (t.y + WIDTH_OF_CUBE / 2) * s.y;
-    object.front_2.z = (t.z - WIDTH_OF_CUBE / 2) * s.z;
-    object.front_3.x = (t.x - WIDTH_OF_CUBE / 2) * s.x;
-    object.front_3.y = (t.y - WIDTH_OF_CUBE / 2) * s.y;
-    object.front_3.z = (t.z - WIDTH_OF_CUBE / 2) * s.z;
-    object.front_4.x = (t.x + WIDTH_OF_CUBE / 2) * s.x;
-    object.front_4.y = (t.y - WIDTH_OF_CUBE / 2) * s.y;
-    object.front_4.z = (t.z - WIDTH_OF_CUBE / 2) * s.z;
+    object.front_1.x = t.x + s.x * WIDTH_OF_CUBE/2;
+    object.front_1.y = t.y + s.y * WIDTH_OF_CUBE/2;
+    object.front_1.z = t.z - s.z * WIDTH_OF_CUBE/2;
+    object.front_2.x = t.x - s.x * WIDTH_OF_CUBE/2;
+    object.front_2.y = t.y + s.y * WIDTH_OF_CUBE/2;
+    object.front_2.z = t.z- s.z * WIDTH_OF_CUBE/2;
+    object.front_3.x = t.x - s.x * WIDTH_OF_CUBE/2;
+    object.front_3.y = t.y - s.y * WIDTH_OF_CUBE/2;
+    object.front_3.z = t.z - s.z * WIDTH_OF_CUBE/2;
+    object.front_4.x = t.x + s.x * WIDTH_OF_CUBE/2;
+    object.front_4.y = t.y - s.y * WIDTH_OF_CUBE/2;
+    object.front_4.z = t.z - s.z * WIDTH_OF_CUBE/2;
 
-	all_models_coordinates.push_back(object);
+    SceneBuilder::all_models_coordinates.push_back(object);
 
 	return M;
 }
@@ -145,7 +141,7 @@ void SceneBuilder::BuildScene(mat4 V)
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(6.5f, 0.3f, 4.3f), vec3(0.07f, 0.3f, 0.07f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 
-	//labirynt
+	// maze
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(4.0f, 0.5f, -1.6f), vec3(2.5f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(1.5f, 0.5f, -3.0f), vec3(0.1f, 2.0f, 1.5f))));
@@ -155,17 +151,16 @@ void SceneBuilder::BuildScene(mat4 V)
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(5.5f, 0.5f, -3.0f), vec3(2.5f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
     glDeleteTextures(1, &tex);
+
 	// room:
     ApplyTexture(tex, image2, width2, height2);
 	// floor
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.1f,  0.0f), vec3(8.0f, 0.0f, 6.0f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-
     ApplyTexture(tex, image1, width1, height1);
 	// main walls
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f,  6.0f), vec3(8.0f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f,  -6.0f), vec3(8.0f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(8.0f, 0.0f,  0.0f), vec3(0.1f, 2.0f, 6.0f))));

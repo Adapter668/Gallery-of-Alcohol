@@ -19,5 +19,5 @@ public:
 	void mouseUpdate(const glm::vec2& newMousePosition);	// TODO
 
 private:
-	bool checkIfPossibleToMove();		// collision detection
+	bool checkIfPossibleToMove(glm::vec3 newPosition);		// collision detection
 };

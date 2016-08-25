@@ -4,12 +4,13 @@
 
 
 Camera::Camera() :
-        position(0.0f, 1.0f, 0.0f),
+        //position(0.0f, 1.0f, 0.0f),
+        position(1.0f, 1.0f, 0.8f),
         viewDirection(0.0f, 0.0f, 2.0f),
         UP(0.0f, 1.0f, 0.0f)
-//position(0.0f, 5.0f, 0.0f),
-//viewDirection(0.0f, -2.5f, 2.0f),
-//UP(0.0f, 1.0f, 0.0f)
+//        position(0.0f, 5.0f, 0.0f),
+//        viewDirection(0.0f, -2.5f, 2.0f),
+//        UP(0.0f, 1.0f, 0.0f)
 {
 }
 
@@ -27,13 +28,15 @@ void Camera::directionUpdate(short direction) {
 }
 
 void Camera::positionUpdate(short way) {
-    if (checkIfPossibleToMove() == false) return;
+    glm::vec3 newPosition =position;
     if (way == FORWARD) {
-        position = position + viewDirection*SPEED_OF_ROTATE;
+        newPosition = position + viewDirection*SPEED_OF_ROTATE;
     }
     if (way == BACK) {
-        position = position - viewDirection*SPEED_OF_ROTATE;
+        newPosition = position - viewDirection*SPEED_OF_ROTATE;
     }
+    if (!checkIfPossibleToMove(newPosition)) return;  // collision detection
+   position = newPosition;
 }
 
 void Camera::mouseUpdate(const glm::vec2& newMousePosition) {
@@ -42,9 +45,21 @@ void Camera::mouseUpdate(const glm::vec2& newMousePosition) {
 	oldMousePosition = newMousePosition;
 }
 
-bool Camera::checkIfPossibleToMove() {
+bool collisionDetected(glm::vec3 newPosition, cuboid object) {
+    if (    (newPosition.x >= object.front_2.x and newPosition.x <= object.front_1.x) and
+            (newPosition.z >= object.front_2.z and newPosition.z <= object.back_2.z) and
+            newPosition.y >= object.front_3.y and newPosition.y <= object.front_2.y) {
+        return true;        // collision detected
+    }
+    else return false;  // there is no collision detected
+}
+
+bool Camera::checkIfPossibleToMove(glm::vec3 newPosition) {
     // TODO detecting collision
-    return true;
+    for (auto object: SceneBuilder::all_models_coordinates) {
+        if (collisionDetected(newPosition, object)) return false;   // it's not possible to move
+    }
+    return true;        // it is possible to move
 }
 
 //bool Camera::checkIfPossibleToMove(vec3 newPosition, SceneBuilder* sceneBuilder) {

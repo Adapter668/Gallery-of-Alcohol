@@ -45,10 +45,10 @@ private:
     void ApplyTexture(GLuint tex, std::vector<unsigned char> image, unsigned width, unsigned height);
 
 public:
-    vector<cuboid> all_models_coordinates;
+    static vector<cuboid> all_models_coordinates;
 
-	SceneBuilder();
-	~SceneBuilder();
+	SceneBuilder() { };
+	~SceneBuilder() {};
 	void LoadModelsToMemory();
 	void BuildScene(mat4 V); //it will be the BuildScene procedure, but now is BuildScene
 };
