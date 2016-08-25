@@ -1,7 +1,6 @@
 #include <cstring>
 #include "MeshLoader.h"
 
-
 //http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/
 
 void MeshLoader::LoadMesh(char path[], vector<float> &outVert, vector<float> &outNorm, vector<float> &outUv) {
@@ -12,7 +11,6 @@ void MeshLoader::LoadMesh(char path[], vector<float> &outVert, vector<float> &ou
 
 	// OPENING FILE WITH MODEL
 	FILE * file = fopen(path, "r");
-	//int erno = fopen(path, "r");
 	if (file == NULL) {
 		printf("Impossible to open the file !\n");
 		return;
