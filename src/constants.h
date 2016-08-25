@@ -9,6 +9,7 @@ const float PI = 3.141592653589793f;
 #define FORWARD		3
 #define BACK				4
 #define SPEED_OF_ROTATE		0.025f
+#define DISTANCE_IN_COLLISION   25.0f
 
 // MODELS
 #define CUBE                                    0

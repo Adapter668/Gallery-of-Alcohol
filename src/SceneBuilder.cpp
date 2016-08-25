@@ -10,8 +10,8 @@ void SceneBuilder::LoadModelsToMemory()
     //Reading and import image and place in initOpenGLProgram
     //Reading into CPU memory
     //Read texture image
-    unsigned error0 = lodepng::decode(image0, width0, height0, "wood.png");
-    unsigned error1 = lodepng::decode(image1, width1, height1, "brick.png");
+    unsigned error0 = lodepng::decode(image0, width0, height0, "czerwony.png");
+    unsigned error1 = lodepng::decode(image1, width1, height1, "rozowy.png");
     unsigned error2 = lodepng::decode(image2, width2, height2, "niebieski.png");
     //Import into graphics card memory
     glGenTextures(1, &tex); //Initialize one handle

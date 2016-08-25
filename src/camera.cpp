@@ -19,24 +19,30 @@ glm::mat4 Camera::getWorldToViewMatrix() const {
 }
 
 void Camera::directionUpdate(short direction) {
+    glm::vec3 newDirectionToDetectCollision = viewDirection;
 	if (direction == LEFT) {
+        newDirectionToDetectCollision = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
 		viewDirection = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
 	}
 	if (direction == RIGHT) {
+        newDirectionToDetectCollision = glm::mat3(glm::rotate(-SPEED_OF_ROTATE, UP)) * viewDirection;
 		viewDirection = glm::mat3(glm::rotate(-SPEED_OF_ROTATE, UP)) * viewDirection;
 	}
 }
 
 void Camera::positionUpdate(short way) {
-    glm::vec3 newPosition =position;
+    glm::vec3 newPositionToDetectCollision =position;
+    glm::vec3 newPositionToGo = position;
     if (way == FORWARD) {
-        newPosition = position + viewDirection*SPEED_OF_ROTATE;
+        newPositionToDetectCollision = position + viewDirection * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
+        newPositionToGo = position + viewDirection *SPEED_OF_ROTATE;
     }
     if (way == BACK) {
-        newPosition = position - viewDirection*SPEED_OF_ROTATE;
+        newPositionToDetectCollision = position - viewDirection* DISTANCE_IN_COLLISION * SPEED_OF_ROTATE;
+        newPositionToGo = position - viewDirection *SPEED_OF_ROTATE;
     }
-    if (!checkIfPossibleToMove(newPosition)) return;  // collision detection
-   position = newPosition;
+    if (!checkIfPossibleToMove(newPositionToDetectCollision)) return;  // collision detection
+   position = newPositionToGo;
 }
 
 void Camera::mouseUpdate(const glm::vec2& newMousePosition) {
@@ -47,8 +53,8 @@ void Camera::mouseUpdate(const glm::vec2& newMousePosition) {
 
 bool collisionDetected(glm::vec3 newPosition, cuboid object) {
     if (    (newPosition.x >= object.front_2.x and newPosition.x <= object.front_1.x) and
-            (newPosition.z >= object.front_2.z and newPosition.z <= object.back_2.z) and
-            newPosition.y >= object.front_3.y and newPosition.y <= object.front_2.y) {
+            (newPosition.z >= object.front_2.z and newPosition.z <= object.back_2.z)  and
+            (newPosition.y >= object.front_3.y  and newPosition.y <= object.front_2.y) ) {
         return true;        // collision detected
     }
     else return false;  // there is no collision detected
