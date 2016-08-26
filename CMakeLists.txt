@@ -25,7 +25,7 @@ set(SOURCE_FILES
         src/model.cpp
         src/model.h
         src/SceneBuilder.cpp
-        src/SceneBuilder.h)
+        src/SceneBuilder.h src/special_effects.cpp src/special_effects.h)
 
 add_executable(Gallery_of_Alcohol ${SOURCE_FILES})
 

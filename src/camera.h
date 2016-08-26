@@ -17,6 +17,7 @@ public:
 	void directionUpdate(short direction);
 	void positionUpdate(short way);
 	void mouseUpdate(const glm::vec2& newMousePosition);	// TODO
+    void loadMatrices();
 
 private:
 	bool checkIfPossibleToMove(glm::vec3 newPosition);		// collision detection

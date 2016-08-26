@@ -21,13 +21,26 @@ glm::mat4 Camera::getWorldToViewMatrix() const {
 void Camera::directionUpdate(short direction) {
     glm::vec3 newDirectionToDetectCollision = viewDirection;
 	if (direction == LEFT) {
-        newDirectionToDetectCollision = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
 		viewDirection = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
 	}
 	if (direction == RIGHT) {
-        newDirectionToDetectCollision = glm::mat3(glm::rotate(-SPEED_OF_ROTATE, UP)) * viewDirection;
 		viewDirection = glm::mat3(glm::rotate(-SPEED_OF_ROTATE, UP)) * viewDirection;
 	}
+}
+
+void Camera::loadMatrices() {
+    mat4 projectionMatrix;
+    mat4 modelMatrix;
+    projectionMatrix = perspective(50.0f*PI / 180.0f, 1.0f, 1.0f, 50.0f);// Compute projection matrix
+    modelMatrix = mat4(1.0f); //Compute model matrix of room
+
+    //Load matrices into OpenGL
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixf(value_ptr(projectionMatrix));								// P
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf(value_ptr(this->getWorldToViewMatrix()));				// V
+    glLoadMatrixf(value_ptr(this->getWorldToViewMatrix() * modelMatrix));	// V*M
+
 }
 
 void Camera::positionUpdate(short way) {

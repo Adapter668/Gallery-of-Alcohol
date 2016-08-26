@@ -71,7 +71,6 @@ mat4 SceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s)
     object.front_4.z = t.z - s.z * WIDTH_OF_CUBE/2;
 
     SceneBuilder::all_models_coordinates.push_back(object);
-
 	return M;
 }
 

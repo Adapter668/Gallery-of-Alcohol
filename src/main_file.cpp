@@ -21,23 +21,11 @@
 using namespace glm;
 using namespace std;
 
-
-GLFWwindow* window;				// Pointer to object that represents the application window
-Camera camera;					// Camera's declaration
-short directionToLook = NONE;	// Helps moving camera
-short positionToGo = NONE;		// Helps moving camera
-
-//---RUBISH---
-mat4 projectionMatrix;
-mat4 roomModel;
-//GLuint tex;
-
-SceneBuilder sceneBuilder; 
-MeshLoader roomMesh;
-vector<float>outVert;
-vector<float>outNorm;
-vector<float>outUv;
-//------------
+GLFWwindow*  window;				// Pointer to object that represents the application window
+Camera              camera;					// Camera's declaration
+SceneBuilder     sceneBuilder;
+short                    directionToLook = NONE;	// Helps moving camera
+short                     positionToGo = NONE;		// Helps moving camera
 
 // CALLBACK PROCEDURES:
 void error_callback(int error, const char* description) {
@@ -82,8 +70,7 @@ void cursor_callback(GLFWwindow *window, double x, double y) {
 
 // INITIALIZATION CODE PROCEDURE
 void initOpenGLProgram(GLFWwindow* window) {
-	//roomMesh.LoadMesh("room with tekxture.obj", outVert, outNorm, outUv);
-	glBufferData(GL_ARRAY_BUFFER, outVert.size() * sizeof(glm::vec3), &outVert[0], GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, outVert.size() * sizeof(glm::vec3), &outVert[0], GL_STATIC_DRAW);
     sceneBuilder.LoadModelsToMemory();	                // loading another models (cube)
 	//************Place any code here that needs to be executed once, at the program start************
 	glClearColor(0, 30, 0, 1);                      // Clear background with black color
@@ -102,19 +89,9 @@ void initOpenGLProgram(GLFWwindow* window) {
 // DRAWING SCENE
 void drawScene(GLFWwindow* window) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    camera.loadMatrices();
 
-	//****************CAMERA AND VIEW************************************
-	projectionMatrix = perspective(50.0f*PI / 180.0f, 1.0f, 1.0f, 50.0f);// Compute projection matrix
-	roomModel = mat4(1.0f); //Compute model matrix of room
-	
-	//Load matrices into OpenGL
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(value_ptr(projectionMatrix));								// P
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(value_ptr(camera.getWorldToViewMatrix()));				// V
-	glLoadMatrixf(value_ptr(camera.getWorldToViewMatrix() * roomModel));	// V*M
-
-	// LIGHT:
+	// ------------------------ LIGHT: ---------------------------------------------
 	// main light:
 	float lightPos[] = { 0,0,0,0 };					//if w=0 -> direction of light
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
@@ -124,8 +101,7 @@ void drawScene(GLFWwindow* window) {
 	lightPos[2] = camera.getCamerasPosition()->z;
 	lightPos[3] = 1;								// if w=1 -> location of light
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-	
-	//**************CAMERAs END****************************************
+    // -----------------------------------------------------------------------------------
 
     sceneBuilder.BuildScene(camera.getWorldToViewMatrix());		//glLoad, draw
 	glfwSwapBuffers(window);				//Copy back buffer into front buffer
