@@ -16,6 +16,8 @@ public:
     void swaying(short type);
     void penetrability();
     void changePerspective();
+    void upsideDown();
+    void closePerpective();
 };
 
 

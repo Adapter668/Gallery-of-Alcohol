@@ -30,12 +30,13 @@ void Special_effects::penetrability() {
 }
 
 void Special_effects::changePerspective() {
-    if (camera_ptr->common_perspective) {
-        camera_ptr->common_perspective = false;
-        cout << "Different perspective\n";
-    }
-    else {
-        camera_ptr->common_perspective = true;
-        cout << "Normal perspective\n";
-    }
+    camera_ptr->different_perspective();
+}
+
+void Special_effects::upsideDown() {
+    camera_ptr->upsideDown();
+}
+
+void Special_effects::closePerpective() {
+    camera_ptr->closePerspective();
 }

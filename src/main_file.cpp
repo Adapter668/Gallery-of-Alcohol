@@ -56,6 +56,8 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
         // additional:
         if (key == GLFW_KEY_1) special_effects.penetrability();
         if (key == GLFW_KEY_2) special_effects.changePerspective();
+        if (key == GLFW_KEY_3) special_effects.upsideDown();
+        if (key == GLFW_KEY_4) special_effects.closePerpective();
 	}
 	if (action == GLFW_RELEASE) { //If the user released a key, zero the appropriate angular speed
 		if (key == GLFW_KEY_W || key == GLFW_KEY_S || key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) positionToGo = NONE;
