@@ -51,5 +51,6 @@ public:
 	~SceneBuilder() {};
 	void LoadModelsToMemory();
 	void BuildScene(mat4 V); //it will be the BuildScene procedure, but now is BuildScene
+    void getObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV);
 };
 

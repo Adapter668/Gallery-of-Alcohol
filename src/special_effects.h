@@ -2,18 +2,20 @@
 #define GALLERY_OF_ALCOHOL_SPECIAL_EFFECTS_H
 
 #include "camera.h"
+#include "SceneBuilder.h"
 
 class Special_effects {
 private:
     Camera* camera_ptr;
+    SceneBuilder* sceneBuilder;
 
 public:
-    Special_effects() {} ;
+    Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder);
     ~Special_effects() {} ;
-    void* array_of_effects;
 
-    void setCameraPointer(Camera* camera);
-    void swaying();
+    void swaying(short type);
+    void penetrability();
+    void changePerspective();
 };
 
 

@@ -32,6 +32,7 @@ void Camera::loadMatrices() {
     mat4 projectionMatrix;
     mat4 modelMatrix;
     projectionMatrix = perspective(50.0f*PI / 180.0f, 1.0f, 1.0f, 50.0f);// Compute projection matrix
+    if (!common_perspective) projectionMatrix = perspective(50.0f*PI / 180.0f, 5.0f, 1.0f, 50.0f);
     modelMatrix = mat4(1.0f); //Compute model matrix of room
 
     //Load matrices into OpenGL
@@ -58,12 +59,6 @@ void Camera::positionUpdate(short way) {
    position = newPositionToGo;
 }
 
-void Camera::mouseUpdate(const glm::vec2& newMousePosition) {
-	glm::vec2 lookDelta = newMousePosition - oldMousePosition;
-	viewDirection = glm::mat3(glm::rotate(lookDelta.x, UP)) * viewDirection;
-	oldMousePosition = newMousePosition;
-}
-
 bool collisionDetected(glm::vec3 newPosition, cuboid object) {
     if (    (newPosition.x >= object.front_2.x and newPosition.x <= object.front_1.x) and
             (newPosition.z >= object.front_2.z and newPosition.z <= object.back_2.z)  and
@@ -75,6 +70,7 @@ bool collisionDetected(glm::vec3 newPosition, cuboid object) {
 
 bool Camera::checkIfPossibleToMove(glm::vec3 newPosition) {
     // TODO detecting collision
+    if (!collision_on) return true;     // if collision turned off -> it's always possible to move
     for (auto object: SceneBuilder::all_models_coordinates) {
         if (collisionDetected(newPosition, object)) return false;   // it's not possible to move
     }

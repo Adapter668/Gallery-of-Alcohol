@@ -17,6 +17,7 @@
 #include "MeshLoader.h"
 #include "SceneBuilder.h"
 #include "camera.h"
+#include "special_effects.h"
 
 using namespace glm;
 using namespace std;
@@ -24,6 +25,7 @@ using namespace std;
 GLFWwindow*  window;				// Pointer to object that represents the application window
 Camera              camera;					// Camera's declaration
 SceneBuilder     sceneBuilder;
+Special_effects  special_effects(&camera, &sceneBuilder);
 short                    directionToLook = NONE;	// Helps moving camera
 short                     positionToGo = NONE;		// Helps moving camera
 
@@ -51,6 +53,9 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_S || key == GLFW_KEY_DOWN) {
 			positionToGo = BACK;
 		}
+        // additional:
+        if (key == GLFW_KEY_1) special_effects.penetrability();
+        if (key == GLFW_KEY_2) special_effects.changePerspective();
 	}
 	if (action == GLFW_RELEASE) { //If the user released a key, zero the appropriate angular speed
 		if (key == GLFW_KEY_W || key == GLFW_KEY_S || key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) positionToGo = NONE;

@@ -1,5 +1,6 @@
 #include "SceneBuilder.h"
 #include "lodepng.h"
+#include "special_effects.h"
 
 vector<cuboid> SceneBuilder::all_models_coordinates;
 
@@ -20,6 +21,7 @@ void SceneBuilder::LoadModelsToMemory()
 
 void SceneBuilder::DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV)
 {
+
 	glEnableClientState(GL_VERTEX_ARRAY); //Tell OpenGL to use vertex coordinate array for drawing
 										  //glEnableClientState(GL_COLOR_ARRAY); //Tell OpenGL to use color array for drawing
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -187,4 +189,10 @@ void SceneBuilder::ApplyTexture(GLuint tex, std::vector<unsigned char> image, un
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glEnable(GL_TEXTURE_2D);
 
+}
+
+void SceneBuilder::getObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV) {
+    outVert = objects[type].outVert;
+    outNorm = objects[type].outNorm;
+    outUV = objects[type].outUV;
 }
