@@ -29,14 +29,14 @@ void Special_effects::penetrability() {
     }
 }
 
-void Special_effects::changePerspective() {
-    camera_ptr->different_perspective();
+void Special_effects::changePerspective(float aspect) {
+    camera_ptr->different_perspective(aspect);
 }
 
 void Special_effects::upsideDown() {
     camera_ptr->upsideDown();
 }
 
-void Special_effects::closePerpective() {
-    camera_ptr->closePerspective();
+void Special_effects::closePerpective(float angle) {
+    camera_ptr->closePerspective(angle);
 }

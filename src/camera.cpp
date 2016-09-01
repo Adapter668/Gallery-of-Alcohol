@@ -89,10 +89,10 @@ void Camera::upsideDown() {
     }
 }
 
-void Camera::different_perspective() {
+void Camera::different_perspective(float aspect) {
     if (common_perspective) {
         common_perspective = false;
-        projectionMatrix = perspective(50.0f*PI / 180.0f, 5.0f, 1.0f, 50.0f);
+        projectionMatrix = perspective(50.0f*PI / 180.0f, aspect, 1.0f, 50.0f);
         cout << "Different perspective on\n";
     }
     else {
@@ -102,7 +102,7 @@ void Camera::different_perspective() {
     }
 }
 
-void Camera::closePerspective() {
+void Camera::closePerspective(float angle) {
     if (close) {
         close = false;
         projectionMatrix = perspective(50.0f*PI / 180.0f, 1.0f, 1.0f, 50.0f);
@@ -110,7 +110,7 @@ void Camera::closePerspective() {
     }
     else {
         close = true;
-        projectionMatrix = perspective(15.0f*PI / 180.0f, 1.0f, 1.0f, 50.0f);
+        projectionMatrix = perspective(angle*PI / 180.0f, 1.0f, 1.0f, 50.0f);
         cout << "Close on\n";
     }
 }

@@ -23,9 +23,10 @@ public:
 	void positionUpdate(short way);
     void loadMatrices();
 
-    void different_perspective();
+    // alkohol effects:
+    void different_perspective(float aspect);
     void upsideDown();
-    void closePerspective();
+    void closePerspective(float angle);
 
 private:
 	bool checkIfPossibleToMove(glm::vec3 newPosition);		// collision detection

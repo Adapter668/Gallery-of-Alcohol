@@ -15,9 +15,9 @@ public:
 
     void swaying(short type);
     void penetrability();
-    void changePerspective();
+    void changePerspective(float aspect = 5.0f);
     void upsideDown();
-    void closePerpective();
+    void closePerpective(float angle = 15.0f);
 };
 
 
