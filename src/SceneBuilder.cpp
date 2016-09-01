@@ -20,7 +20,7 @@ void SceneBuilder::LoadModelsToMemory()
     //Read texture image
     unsigned error0 = lodepng::decode(image0, width0, height0, "wood.png");     // furniture
     unsigned error1 = lodepng::decode(image1, width1, height1, "beige.png");       // walls
-    unsigned error2 = lodepng::decode(image2, width2, height2, "czerwony2.png");    // floor
+    unsigned error2 = lodepng::decode(image2, width2, height2, "czerwony.png");    // floor
     unsigned error3 = lodepng::decode(image3, width3, height3, "green.png");
     unsigned error4 = lodepng::decode(image4, width4, height4, "brown.png");
     unsigned error5 = lodepng::decode(image5, width5, height5, "red.png");
