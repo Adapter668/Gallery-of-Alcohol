@@ -17,7 +17,8 @@ public:
     void penetrability();
     void changePerspective(float aspect = 5.0f);
     void upsideDown();
-    void closePerpective(float angle = 15.0f);
+    void closePerspective(float angle = 15.0f);
+    void colorChange();
 };
 
 

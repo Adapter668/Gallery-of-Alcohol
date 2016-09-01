@@ -37,6 +37,11 @@ void Special_effects::upsideDown() {
     camera_ptr->upsideDown();
 }
 
-void Special_effects::closePerpective(float angle) {
+void Special_effects::closePerspective(float angle) {
     camera_ptr->closePerspective(angle);
+}
+
+void Special_effects::colorChange() {
+    if (glIsEnabled(GL_LIGHT1)) glDisable(GL_LIGHT1);
+    else glEnable(GL_LIGHT1);
 }

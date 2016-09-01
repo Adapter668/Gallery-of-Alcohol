@@ -2,7 +2,6 @@
 #include "constants.h"
 #include <glm/gtx/transform.hpp>
 
-
 Camera::Camera() :
         //position(0.0f, 1.0f, 0.0f),
         position(1.0f, 1.0f, 0.8f),
@@ -33,15 +32,28 @@ void Camera::directionUpdate(short direction) {
 void Camera::loadMatrices() {
     mat4 modelMatrix;
     modelMatrix = mat4(1.0f); //Compute model matrix of room
-
     //Load matrices into OpenGL
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(value_ptr(this->projectionMatrix));								// P
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(value_ptr(this->getWorldToViewMatrix()));				// V
     glLoadMatrixf(value_ptr(this->getWorldToViewMatrix() * modelMatrix));	// V*M
-
 }
+
+void Camera::lights() {
+   float lightPos[4];				//if w=0 -> direction of light
+    // light in front of camera:
+    glm::vec3 newPosition = position;
+    newPosition = newPosition + viewDirection * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
+    lightPos[0] = newPosition.x;
+    lightPos[1] = newPosition.y;
+    lightPos[2] = newPosition.z;
+    lightPos[3] = 1;								// if w=1 -> location of light
+    glLightfv(GL_LIGHT0,GL_POSITION, lightPos);
+
+    differentColors();
+}
+
 
 void Camera::positionUpdate(short way) {
     glm::vec3 newPositionToDetectCollision =position;
@@ -113,4 +125,17 @@ void Camera::closePerspective(float angle) {
         projectionMatrix = perspective(angle*PI / 180.0f, 1.0f, 1.0f, 50.0f);
         cout << "Close on\n";
     }
+}
+
+void Camera::differentColors() {
+    float lightPos[4];
+    glm::vec3 newPosition = position;
+    newPosition = newPosition + viewDirection * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
+    lightPos[0] = newPosition.x;
+    lightPos[1] = newPosition.y;
+    lightPos[2] = newPosition.z;
+    lightPos[3] = 1;
+    glLightfv(GL_LIGHT1,GL_AMBIENT, lightPos);
+    glLightfv(GL_LIGHT1,GL_DIFFUSE, lightPos);
+    glLightfv(GL_LIGHT1,GL_SPECULAR, lightPos);
 }

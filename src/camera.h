@@ -18,16 +18,20 @@ public:
 
 	Camera();
 	glm::mat4 getWorldToViewMatrix() const;
-	glm::vec3* getCamerasPosition() { return &position; };
+	glm::vec3 getCamerasPosition() { return position; };
+    glm::vec3 getCamerasViewDirection() { return viewDirection; };
 	void directionUpdate(short direction);
 	void positionUpdate(short way);
     void loadMatrices();
+    void lights();
 
     // alkohol effects:
     void different_perspective(float aspect);
     void upsideDown();
     void closePerspective(float angle);
+    void differentColors();
 
 private:
 	bool checkIfPossibleToMove(glm::vec3 newPosition);		// collision detection
+
 };

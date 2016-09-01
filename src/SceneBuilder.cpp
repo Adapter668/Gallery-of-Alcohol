@@ -11,9 +11,9 @@ void SceneBuilder::LoadModelsToMemory()
     //Reading and import image and place in initOpenGLProgram
     //Reading into CPU memory
     //Read texture image
-    unsigned error0 = lodepng::decode(image0, width0, height0, "czerwony.png");
-    unsigned error1 = lodepng::decode(image1, width1, height1, "rozowy.png");
-    unsigned error2 = lodepng::decode(image2, width2, height2, "niebieski.png");
+    unsigned error0 = lodepng::decode(image0, width0, height0, "wood.png");     // furniture
+    unsigned error1 = lodepng::decode(image1, width1, height1, "beige.png");       // walls
+    unsigned error2 = lodepng::decode(image2, width2, height2, "czerwony.png");    // floor
     //Import into graphics card memory
     glGenTextures(1, &tex); //Initialize one handle
     glBindTexture(GL_TEXTURE_2D, tex); //Activate handle
@@ -78,6 +78,13 @@ mat4 SceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s)
 
 void SceneBuilder::BuildScene(mat4 V)
 {
+    GLfloat mat_emission[] = {0.3, 0.2, 0.2, 0.0};
+    GLfloat no_emission[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat no_specular[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat low_shininess[] = { 5.0 };
+    GLfloat no_shininess[] = {0.0};
+
     ApplyTexture(tex, image0, width0, height0);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(-3.0f, 0.3f, 5.7f), vec3(2.0f, 0.3f, 0.3f)))); //naro�nik d�u�sza �ciana
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
@@ -108,6 +115,9 @@ void SceneBuilder::BuildScene(mat4 V)
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(-6.5f, 0.4f, -4.0f), vec3(0.2f, 0.4f, 2.0f)))); //bar
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 
+//    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);      // light emission
+//    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+//    glMaterialfv(GL_FRONT, GL_SHININESS, low_shininess);
 	//slupki w malym pokoju
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(4.0f, 0.3f, 3.5f), vec3(0.07f, 0.3f, 0.07f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
@@ -142,6 +152,10 @@ void SceneBuilder::BuildScene(mat4 V)
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(6.5f, 0.3f, 4.3f), vec3(0.07f, 0.3f, 0.07f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 
+//    glMaterialfv(GL_FRONT, GL_SPECULAR, no_specular);
+//    glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+//    glMaterialfv(GL_FRONT, GL_EMISSION, no_emission);   // end of light emission
+
 	// maze
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(1.0f, 0.0f, 0.0f), vec3(4.0f, 0.5f, -1.6f), vec3(2.5f, 2.0f, 0.1f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
@@ -175,6 +189,8 @@ void SceneBuilder::BuildScene(mat4 V)
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f,  4.0f), vec3(0.1f, 2.0f, 2.0f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+
+
 
     glDeleteTextures(1, &tex);
 }
