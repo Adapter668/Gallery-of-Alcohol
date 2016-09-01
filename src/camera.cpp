@@ -2,6 +2,7 @@
 #include "constants.h"
 #include <glm/gtx/transform.hpp>
 
+
 Camera::Camera() :
         //position(0.0f, 1.0f, 0.0f),
         position(1.0f, 1.0f, 0.8f),
@@ -21,10 +22,17 @@ glm::mat4 Camera::getWorldToViewMatrix() const {
 
 void Camera::directionUpdate(short direction) {
     glm::vec3 newDirectionToDetectCollision = viewDirection;
+    glm::vec3 newPositionToDetectCollision =position;
 	if (direction == LEFT) {
+        newDirectionToDetectCollision = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
+        newPositionToDetectCollision = position + newDirectionToDetectCollision * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
+        if (!checkIfPossibleToMove(newPositionToDetectCollision)) return;
 		viewDirection = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
 	}
 	if (direction == RIGHT) {
+        newDirectionToDetectCollision = glm::mat3(glm::rotate(-SPEED_OF_ROTATE, UP)) * viewDirection;
+        newPositionToDetectCollision = position + newDirectionToDetectCollision * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
+        if (!checkIfPossibleToMove(newPositionToDetectCollision)) return;
 		viewDirection = glm::mat3(glm::rotate(-SPEED_OF_ROTATE, UP)) * viewDirection;
 	}
 }
@@ -32,6 +40,7 @@ void Camera::directionUpdate(short direction) {
 void Camera::loadMatrices() {
     mat4 modelMatrix;
     modelMatrix = mat4(1.0f); //Compute model matrix of room
+
     //Load matrices into OpenGL
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(value_ptr(this->projectionMatrix));								// P
@@ -54,7 +63,6 @@ void Camera::lights() {
     differentColors();
 }
 
-
 void Camera::positionUpdate(short way) {
     glm::vec3 newPositionToDetectCollision =position;
     glm::vec3 newPositionToGo = position;
@@ -76,11 +84,10 @@ bool collisionDetected(glm::vec3 newPosition, cuboid object) {
             ((newPosition.y-0.6f) >= object.front_3.y  and (newPosition.y-0.6f) <= object.front_2.y) ) {
         return true;        // collision detected
     }
-    else return false;  // there is no collision detected
+    else return false;  // there is no detected collision
 }
 
 bool Camera::checkIfPossibleToMove(glm::vec3 newPosition) {
-    // TODO detecting collision
     if (!collision_on) return true;     // if collision turned off -> it's always possible to move
     for (auto object: SceneBuilder::all_models_coordinates) {
         if (collisionDetected(newPosition, object)) return false;   // it's not possible to move
