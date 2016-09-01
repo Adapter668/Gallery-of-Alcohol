@@ -95,12 +95,13 @@ void initOpenGLProgram(GLFWwindow* window) {
 
 }
 
+bool first = true;
 // DRAWING SCENE
 void drawScene(GLFWwindow* window) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     camera.loadMatrices();      // load matrices of camera
     camera.lights();                    // lights
-    sceneBuilder.BuildScene(camera.getWorldToViewMatrix());		//glLoad, draw
+    sceneBuilder.BuildScene(camera.getWorldToViewMatrix());        //glLoad, draw
 	glfwSwapBuffers(window);				//Copy back buffer into front buffer
 }
 
