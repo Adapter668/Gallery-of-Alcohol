@@ -37,8 +37,8 @@ class SceneBuilder
 private:
     furnitureAndBottles objects[2];                                 // array of models types
     GLuint tex;
-    std::vector<unsigned char> image0, image1, image2; //Allocate a vector for image data
-    unsigned width0, height0, width1, height1, width2, height2; //Variables for image size
+    std::vector<unsigned char> image0, image1, image2, image3, image4, image5, image6; //Allocate a vector for image data
+    unsigned width0, height0, width1, height1, width2, height2, width3, height3, width4, height4, width5, height5, width6, height6; //Variables for image size
 
     mat4 Adjust(mat4 M, vec3 r, vec3 t, vec3 s);
     void DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV);
