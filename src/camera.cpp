@@ -60,7 +60,7 @@ void Camera::lights() {
     lightPos[3] = 1;								// if w=1 -> location of light
     glLightfv(GL_LIGHT0,GL_POSITION, lightPos);
 
-    differentColors();
+    differentColors();      // color change effect
 }
 
 void Camera::positionUpdate(short way) {

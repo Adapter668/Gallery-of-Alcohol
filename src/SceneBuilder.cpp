@@ -13,7 +13,7 @@ void SceneBuilder::LoadModelsToMemory()
     //Read texture image
     unsigned error0 = lodepng::decode(image0, width0, height0, "wood.png");     // furniture
     unsigned error1 = lodepng::decode(image1, width1, height1, "beige.png");       // walls
-    unsigned error2 = lodepng::decode(image2, width2, height2, "czerwony.png");    // floor
+    unsigned error2 = lodepng::decode(image2, width2, height2, "czerwony2.png");    // floor
     //Import into graphics card memory
     glGenTextures(1, &tex); //Initialize one handle
     glBindTexture(GL_TEXTURE_2D, tex); //Activate handle
@@ -170,8 +170,9 @@ void SceneBuilder::BuildScene(mat4 V)
 	// room:
     ApplyTexture(tex, image2, width2, height2);
 	// floor
-	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.1f,  0.0f), vec3(8.0f, 0.0f, 6.0f))));
+	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f,  0.0f), vec3(8.0f, 0.0f, 6.0f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+
     ApplyTexture(tex, image1, width1, height1);
 	// main walls
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f,  6.0f), vec3(8.0f, 2.0f, 0.1f))));
@@ -189,8 +190,6 @@ void SceneBuilder::BuildScene(mat4 V)
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f,  4.0f), vec3(0.1f, 2.0f, 2.0f))));
 	DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-
-
 
     glDeleteTextures(1, &tex);
 }

@@ -42,6 +42,12 @@ void Special_effects::closePerspective(float angle) {
 }
 
 void Special_effects::colorChange() {
-    if (glIsEnabled(GL_LIGHT1)) glDisable(GL_LIGHT1);
-    else glEnable(GL_LIGHT1);
+    if (glIsEnabled(GL_LIGHT1)) {
+        glDisable(GL_LIGHT1);
+        cout << "Color change off\n";
+    }
+    else {
+        glEnable(GL_LIGHT1);
+        cout << "Color change on\n";
+    }
 }
