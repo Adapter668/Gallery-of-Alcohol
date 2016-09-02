@@ -1,10 +1,9 @@
 #include "sceneBuilder.h"
 #include "lodepng.h"
-#include "special_effects.h"
 
-vector<cuboid> sceneBuilder::all_models_coordinates;
+vector<cuboid> SceneBuilder::all_models_coordinates;
 
-void sceneBuilder::LoadModelsToMemory()
+void SceneBuilder::LoadModelsToMemory()
 {
 	objects[CUBE].mesh.LoadMesh("cube.obj", objects[0].outVert, objects[0].outNorm, objects[0].outUV);
 	objects[CURACAO_BOTTLE].mesh.LoadMesh("bourbonBottle.obj", objects[1].outVert, objects[1].outNorm, objects[1].outUV);
@@ -27,7 +26,7 @@ void sceneBuilder::LoadModelsToMemory()
     glBindTexture(GL_TEXTURE_2D, tex); //Activate handle
 }
 
-void sceneBuilder::DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV)
+void SceneBuilder::DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV)
 {
 	glEnableClientState(GL_VERTEX_ARRAY); //Tell OpenGL to use vertex coordinate array for drawing
 										  //glEnableClientState(GL_COLOR_ARRAY); //Tell OpenGL to use color array for drawing
@@ -43,7 +42,7 @@ void sceneBuilder::DrawObject(vector<float> outVert, vector<float> outNorm, vect
 	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-mat4 sceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s)
+mat4 SceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s)
 {
 	M = mat4(1.0f);
 	//M = rotate(M, -1.0f, r);
@@ -55,7 +54,7 @@ mat4 sceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s)
 	return M;
 }
 
-void sceneBuilder::addObjectsToAllModelsCoordinate(mat4 M, vec3 r, vec3 t, vec3 s) {
+void SceneBuilder::addObjectsToAllModelsCoordinate(mat4 M, vec3 r, vec3 t, vec3 s) {
     cuboid object;
     // coordinates of object:
     // back
@@ -85,10 +84,10 @@ void sceneBuilder::addObjectsToAllModelsCoordinate(mat4 M, vec3 r, vec3 t, vec3 
     object.front_4.y = t.y - s.y * WIDTH_OF_CUBE/2;
     object.front_4.z = t.z - s.z * WIDTH_OF_CUBE/2;
 
-    sceneBuilder::all_models_coordinates.push_back(object);
+    SceneBuilder::all_models_coordinates.push_back(object);
 }
 
-void sceneBuilder::BuildScene(mat4 V)
+void SceneBuilder::BuildScene(mat4 V)
 {
     GLfloat mat_emission[] = {0.3, 0.2, 0.2, 0.0};
     GLfloat glass[] = { 0.3f, 0.3f, 0.3f, 0.6f };       // ambient and diffuse
@@ -778,7 +777,7 @@ void sceneBuilder::BuildScene(mat4 V)
 }
 
 
-void sceneBuilder::ApplyTexture(GLuint tex, std::vector<unsigned char> image, unsigned width, unsigned height) {
+void SceneBuilder::ApplyTexture(GLuint tex, std::vector<unsigned char> image, unsigned width, unsigned height) {
     //Import image into memory associated with the handle
     glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
                  GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image.data());
@@ -789,7 +788,7 @@ void sceneBuilder::ApplyTexture(GLuint tex, std::vector<unsigned char> image, un
 
 }
 
-void sceneBuilder::getObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV) {
+void SceneBuilder::getObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV) {
     outVert = objects[type].outVert;
     outNorm = objects[type].outNorm;
     outUV = objects[type].outUV;
