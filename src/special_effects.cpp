@@ -1,6 +1,6 @@
 #include "special_effects.h"
 
-Special_effects::Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder) {
+Special_effects::Special_effects(Camera* camera_ptr, sceneBuilder* sceneBuilder) {
     this->sceneBuilder = sceneBuilder;
     this->camera_ptr = camera_ptr;
 } ;

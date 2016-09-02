@@ -2,7 +2,7 @@
 #include <glm/glm.hpp>
 #include <stdbool.h>
 
-#include "SceneBuilder.h"
+#include "sceneBuilder.h"
 
 class Camera {
     glm::vec3 position;
