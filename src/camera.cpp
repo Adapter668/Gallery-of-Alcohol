@@ -89,7 +89,7 @@ bool collisionDetected(glm::vec3 newPosition, cuboid object) {
 
 bool Camera::checkIfPossibleToMove(glm::vec3 newPosition) {
     if (!collision_on) return true;     // if collision turned off -> it's always possible to move
-    for (auto object: sceneBuilder::all_models_coordinates) {
+    for (auto object: SceneBuilder::all_models_coordinates) {
         if (collisionDetected(newPosition, object)) return false;   // it's not possible to move
     }
     return true;        // it is possible to move

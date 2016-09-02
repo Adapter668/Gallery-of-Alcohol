@@ -14,7 +14,6 @@
 #include <stdlib.h>
 
 #include "constants.h"
-#include "meshLoader.h"
 #include "sceneBuilder.h"
 #include "camera.h"
 #include "special_effects.h"
@@ -24,7 +23,7 @@ using namespace std;
 
 GLFWwindow*  window;				// Pointer to object that represents the application window
 Camera              camera;					// Camera's declaration
-sceneBuilder     sceneBuilder;
+SceneBuilder     sceneBuilder;
 Special_effects  special_effects(&camera, &sceneBuilder);
 short                    directionToLook = NONE;	// Helps moving camera
 short                     positionToGo = NONE;		// Helps moving camera

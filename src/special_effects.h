@@ -7,10 +7,10 @@
 class Special_effects {
 private:
     Camera* camera_ptr;
-    sceneBuilder* sceneBuilder;
+    SceneBuilder* sceneBuilder;
 
 public:
-    Special_effects(Camera* camera_ptr, sceneBuilder* sceneBuilder);
+    Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder);
     ~Special_effects() {} ;
 
     void swaying(short type);

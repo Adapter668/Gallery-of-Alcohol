@@ -32,7 +32,7 @@ struct  cuboid {
     vec3 back_4;
 };
 
-class sceneBuilder
+class SceneBuilder
 {
 private:
     furnitureAndBottles objects[2];                                 // array of models types
@@ -49,8 +49,8 @@ private:
 public:
     static vector<cuboid> all_models_coordinates;
 
-	sceneBuilder() { };
-	~sceneBuilder() {};
+	SceneBuilder() { };
+	~SceneBuilder() {};
 	void LoadModelsToMemory();
 	void BuildScene(mat4 V); //it will be the BuildScene procedure, but now is BuildScene
     void getObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV);
