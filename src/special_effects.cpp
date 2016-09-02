@@ -1,6 +1,6 @@
 #include "special_effects.h"
 
-Special_effects::Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder) {
+Special_effects::Special_effects(Camera* camera_ptr, sceneBuilder* sceneBuilder) {
     this->sceneBuilder = sceneBuilder;
     this->camera_ptr = camera_ptr;
 } ;
@@ -42,6 +42,12 @@ void Special_effects::closePerspective(float angle) {
 }
 
 void Special_effects::colorChange() {
-    if (glIsEnabled(GL_LIGHT1)) glDisable(GL_LIGHT1);
-    else glEnable(GL_LIGHT1);
+    if (glIsEnabled(GL_LIGHT1)) {
+        glDisable(GL_LIGHT1);
+        cout << "Color change off\n";
+    }
+    else {
+        glEnable(GL_LIGHT1);
+        cout << "Color change on\n";
+    }
 }

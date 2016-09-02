@@ -20,12 +20,12 @@ set(SOURCE_FILES
         src/lodepng.cpp
         src/lodepng.h
         src/main_file.cpp
-        src/MeshLoader.cpp
-        src/MeshLoader.h
+        src/meshLoader.cpp
+        src/meshLoader.h
         src/model.cpp
         src/model.h
-        src/SceneBuilder.cpp
-        src/SceneBuilder.h src/special_effects.cpp src/special_effects.h)
+        src/sceneBuilder.cpp
+        src/sceneBuilder.h src/special_effects.cpp src/special_effects.h)
 
 add_executable(Gallery_of_Alcohol ${SOURCE_FILES})
 

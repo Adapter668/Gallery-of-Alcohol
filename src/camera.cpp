@@ -60,7 +60,7 @@ void Camera::lights() {
     lightPos[3] = 1;								// if w=1 -> location of light
     glLightfv(GL_LIGHT0,GL_POSITION, lightPos);
 
-    differentColors();
+    differentColors();      // color change effect
 }
 
 void Camera::positionUpdate(short way) {
@@ -81,7 +81,7 @@ void Camera::positionUpdate(short way) {
 bool collisionDetected(glm::vec3 newPosition, cuboid object) {
     if (    (newPosition.x >= object.front_2.x and newPosition.x <= object.front_1.x) and
             (newPosition.z >= object.front_2.z and newPosition.z <= object.back_2.z)  and
-            ((newPosition.y-0.6f) >= object.front_3.y  and (newPosition.y-0.6f) <= object.front_2.y) ) {
+            ((newPosition.y) >= object.front_3.y  and (object.front_2.y) > 0.3f) ) {
         return true;        // collision detected
     }
     else return false;  // there is no detected collision
@@ -89,7 +89,7 @@ bool collisionDetected(glm::vec3 newPosition, cuboid object) {
 
 bool Camera::checkIfPossibleToMove(glm::vec3 newPosition) {
     if (!collision_on) return true;     // if collision turned off -> it's always possible to move
-    for (auto object: SceneBuilder::all_models_coordinates) {
+    for (auto object: sceneBuilder::all_models_coordinates) {
         if (collisionDetected(newPosition, object)) return false;   // it's not possible to move
     }
     return true;        // it is possible to move

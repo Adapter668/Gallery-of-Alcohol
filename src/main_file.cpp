@@ -14,8 +14,8 @@
 #include <stdlib.h>
 
 #include "constants.h"
-#include "MeshLoader.h"
-#include "SceneBuilder.h"
+#include "meshLoader.h"
+#include "sceneBuilder.h"
 #include "camera.h"
 #include "special_effects.h"
 
@@ -24,7 +24,7 @@ using namespace std;
 
 GLFWwindow*  window;				// Pointer to object that represents the application window
 Camera              camera;					// Camera's declaration
-SceneBuilder     sceneBuilder;
+sceneBuilder     sceneBuilder;
 Special_effects  special_effects(&camera, &sceneBuilder);
 short                    directionToLook = NONE;	// Helps moving camera
 short                     positionToGo = NONE;		// Helps moving camera
@@ -95,12 +95,13 @@ void initOpenGLProgram(GLFWwindow* window) {
 
 }
 
+
 // DRAWING SCENE
 void drawScene(GLFWwindow* window) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     camera.loadMatrices();      // load matrices of camera
     camera.lights();                    // lights
-    sceneBuilder.BuildScene(camera.getWorldToViewMatrix());		//glLoad, draw
+    sceneBuilder.BuildScene(camera.getWorldToViewMatrix());        //glLoad, draw
 	glfwSwapBuffers(window);				//Copy back buffer into front buffer
 }
 
@@ -128,7 +129,7 @@ int main(void) {
 
 	//**********MAIN APPLICATION LOOP: **************
 	while (!glfwWindowShouldClose(window)) { //As long as the window shouldnt be closed yet...
-		camera.directionUpdate(directionToLook);	// change direction of camera (LEFT, RIGHT)
+        camera.directionUpdate(directionToLook);	// change direction of camera (LEFT, RIGHT)
 		camera.positionUpdate(positionToGo);		// change position of camera (FORWARD, BACK)
 		drawScene(window);							//Execute drawing procedure
 		glfwPollEvents();							//Process callback procedures corresponding to the events that took place up to now
