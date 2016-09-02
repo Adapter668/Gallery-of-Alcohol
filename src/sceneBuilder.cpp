@@ -205,9 +205,20 @@ void SceneBuilder::BuildScene(mat4 V)
     glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f,  4.0f), vec3(0.1f, 2.0f, 2.0f))));
     DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
     // FLOOR
+    glColor3f(1.0f, 1.0f, 1.0f);
     ApplyTexture(tex, image2, width2, height2);         // tiles
-    glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.1f,  0.0f), vec3(8.0f, 0.0f, 6.0f))));
-    DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+    //glLoadMatrixf(value_ptr(V*Adjust(objects[0].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.1f,  0.0f), vec3(8.0f, 0.0f, 6.0f))));
+    //DrawObject(objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+    glBegin(GL_QUADS);
+    glTexCoord2f (0.0f,0.0f);
+    glVertex3f(70, 0, 1); // top left
+    glTexCoord2f (1.0f,0.0f);
+    glVertex3f(-100, 0, 1); // top right
+    glTexCoord2f (1.0f,1.0f);
+    glVertex3f(-100, 0, -5);// bottom right
+    glTexCoord2f (0.0f,1.0f);
+    glVertex3f(70, 0, -5); // bottom left
+    glEnd();
     glDisable(GL_TEXTURE_2D);
 
     //----------------------------------------------------------------------------------
