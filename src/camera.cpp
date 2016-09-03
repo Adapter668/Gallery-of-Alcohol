@@ -61,6 +61,7 @@ void Camera::lights() {
     glLightfv(GL_LIGHT0,GL_POSITION, lightPos);
 
     differentColors();      // color change effect
+    mainLight();
 }
 
 void Camera::positionUpdate(short way) {
@@ -89,7 +90,7 @@ bool collisionDetected(glm::vec3 newPosition, cuboid object) {
 
 bool Camera::checkIfPossibleToMove(glm::vec3 newPosition) {
     if (!collision_on) return true;     // if collision turned off -> it's always possible to move
-    for (auto object: SceneBuilder::all_models_coordinates) {
+    for (auto object: SceneBuilder::all_cuboid_models_coordinates) {
         if (collisionDetected(newPosition, object)) return false;   // it's not possible to move
     }
     return true;        // it is possible to move
@@ -145,4 +146,56 @@ void Camera::differentColors() {
     glLightfv(GL_LIGHT1,GL_AMBIENT, lightPos);
     glLightfv(GL_LIGHT1,GL_DIFFUSE, lightPos);
     glLightfv(GL_LIGHT1,GL_SPECULAR, lightPos);
+}
+
+void Camera::mainLight() {
+    glEnable(GL_LIGHT3);
+    GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+    GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
+    GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+    GLfloat position[] = { -1.5f, 3.0f, -4.0f, 1.0f };
+
+    glLightfv(GL_LIGHT3, GL_AMBIENT, ambientLight);
+    glLightfv(GL_LIGHT3, GL_DIFFUSE, diffuseLight);
+    glLightfv(GL_LIGHT3, GL_SPECULAR, specularLight);
+    glLightfv(GL_LIGHT3, GL_POSITION, position);
+}
+
+void Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int window_height) {
+    // NORMALISED DEVICE COORDINATES
+    // range [-1:1, -1:1, -1:1]
+    float x = (2.0f * mouse_x) / window_width - 1.0f;
+    float y = 1.0f - (2.0f * mouse_y) / window_height;
+    float z = 1.0f;
+    glm::vec3 ray_nds = glm::vec3 (x, y, z);
+
+    float my_zet = 1.0;
+    // HOMOGENEOUS CLIP COORDINATES
+    // range [-1:1, -1:1, -1:1, -1:1]
+    //We want our ray's z to point forwards - this is usually the negative z direction in OpenGL style.
+    // We can add a w, just so that we have a 4d vector.
+    glm::vec4 ray_clip = glm::vec4(ray_nds.x, ray_nds.y,  my_zet, 1.0);     // z = 1 !!
+
+    // CAMERA COORDINATES
+    // range [-x:x, -y:y, -z:z, -w:w]
+    // Normally, to get into clip space from eye space we multiply the vector by a projection matrix.
+    // We can go backwards by multiplying by the inverse of this matrix.
+    glm::vec4 ray_eye = inverse (projectionMatrix) * ray_clip;
+    ray_eye = glm::vec4 (ray_eye.x, ray_eye.y, -1.0, 0.0);           // z,w -> forwards, and not a point
+
+    // WORLD COORDINATES
+    // range [-x:x, -y:y, -z:z, -w:w]
+    // Remember that we manually specified a -1 for the z component, which means that our ray isn't normalised.
+    // We should do this before we use it.
+    glm::vec3 ray_wor;
+    ray_wor.x = (inverse (getWorldToViewMatrix()) * ray_eye).x;
+    ray_wor.y = (inverse (getWorldToViewMatrix()) * ray_eye).y;
+    ray_wor.z = (inverse (getWorldToViewMatrix()) * ray_eye).z;
+    // don't forget to normalise the vector at some point
+    ray_wor = normalize(ray_wor);
+    //This should balance the up-and-down, left-and-right, and forwards components for us.
+    // So, assuming our camera is looking directly along the -Z world axis, we should get [0,0,-1]
+    // when the mouse is in the centre of the screen, and less significant z values when the mouse moves around the screen.
+    // This will depend on the aspect ratio, and field-of-view defined in the view and projection matrices.
+    // We now have a ray that we can compare with surfaces in world space.
 }
