@@ -32,6 +32,13 @@ struct  cuboid {
     vec3 back_4;
 };
 
+struct bottle {
+    vec3 center;
+    float width;
+    float height;
+    int type;
+};
+
 class SceneBuilder
 {
 private:
@@ -40,14 +47,17 @@ private:
     std::vector<unsigned char> image0, image1, image2, image3, image4, image5, image6; //Allocate a vector for image data
     unsigned width0, height0, width1, height1, width2, height2, width3, height3, width4, height4, width5, height5, width6, height6; //Variables for image size
     bool load_first_models = true;
+    bool load_first_bottles = true;
 
-    mat4 Adjust(mat4 M, vec3 r, vec3 t, vec3 s);
+    mat4 Adjust(mat4 M, vec3 r, vec3 t, vec3 s, int type = CUBE);
     void DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV);
     void ApplyTexture(GLuint tex, std::vector<unsigned char> image, unsigned width, unsigned height);
-    void addObjectsToAllModelsCoordinate(mat4 M, vec3 r, vec3 t, vec3 s);
+    void addObjectsToArray(mat4 M, vec3 r, vec3 t, vec3 s);
+    void addBottlesToArray(mat4 M, vec3 r, vec3 t, vec3 s, int type);
 
 public:
-    static vector<cuboid> all_models_coordinates;
+    static vector<cuboid> all_cuboid_models_coordinates;
+    static vector<bottle> all_bottles_coordinates;
 
 	SceneBuilder() { };
 	~SceneBuilder() {};

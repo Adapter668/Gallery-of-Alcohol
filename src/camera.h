@@ -24,6 +24,7 @@ public:
 	void positionUpdate(short way);
     void loadMatrices();
     void lights();
+    void mousePicking(double mouse_x, double mouse_y, int window_width, int window_height);
 
     // alkohol effects:
     void different_perspective(float aspect);
@@ -33,5 +34,6 @@ public:
 
 private:
 	bool checkIfPossibleToMove(glm::vec3 newPosition);		// collision detection
+    void mainLight();
 
 };

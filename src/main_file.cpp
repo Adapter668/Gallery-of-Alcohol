@@ -21,7 +21,7 @@
 using namespace glm;
 using namespace std;
 
-GLFWwindow*  window;				// Pointer to object that represents the application window
+GLFWwindow*  main_window;				// Pointer to object that represents the application window
 Camera              camera;					// Camera's declaration
 SceneBuilder     sceneBuilder;
 Special_effects  special_effects(&camera, &sceneBuilder);
@@ -65,14 +65,14 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 	}
 }
 
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		// TODO choose bottle to drink
-	}	
-}
-
-void cursor_callback(GLFWwindow *window, double x, double y) {
-	// TODO changing direction using mouse
+void mouse_click_callback(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        int window_width, window_height;
+        double mouse_x, mouse_y;
+        glfwGetWindowSize(window, &window_width, &window_height);
+        glfwGetCursorPos(window, &mouse_x, &mouse_y);
+        camera.mousePicking(mouse_x, mouse_y, window_width, window_height);
+    }
 }
 
 // INITIALIZATION CODE PROCEDURE
@@ -89,9 +89,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 
 	glfwSetErrorCallback(error_callback);	//Register error processing callback procedure
 	glfwSetKeyCallback(window, key_callback); //register the key_callback procedure
-	glfwSetCursorPosCallback(window, cursor_callback);
-	glfwSetMouseButtonCallback(window, mouse_button_callback); // register the mouse callback procedure
-
+	glfwSetMouseButtonCallback(window, mouse_click_callback); // register the mouse callback procedure
 }
 
 
@@ -112,29 +110,29 @@ int main(void) {
 	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
 	//window = glfwCreateWindow(mode->width, mode->height, "Alcohol Gallery", primaryMonitor, NULL);  //Create a window 500pxx500px titled "OpenGL" and an OpenGL context associated with it.
-    window = glfwCreateWindow(800, 600, "Alcohol Gallery", NULL, NULL);
-    if (!window) {			//If no window is opened then close the program
+    main_window = glfwCreateWindow(800, 600, "Alcohol Gallery", NULL, NULL);
+    if (!main_window) {			//If no window is opened then close the program
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	glfwMakeContextCurrent(window); //Since this moment OpenGL context corresponding to the window is active and all OpenGL calls will refer to this context.
+	glfwMakeContextCurrent(main_window); //Since this moment OpenGL context corresponding to the window is active and all OpenGL calls will refer to this context.
 	glfwSwapInterval(1); //During vsync wait for the first refresh
 	GLenum err;
 	if ((err = glewInit()) != GLEW_OK) { //Initialize GLEW library
 		fprintf(stderr, "Can't initialize GLEW: %s\n", glewGetErrorString(err));
 		exit(EXIT_FAILURE);
 	}
-	initOpenGLProgram(window); //Call initialization procedure
+	initOpenGLProgram(main_window); //Call initialization procedure
 
 	//**********MAIN APPLICATION LOOP: **************
-	while (!glfwWindowShouldClose(window)) { //As long as the window shouldnt be closed yet...
+	while (!glfwWindowShouldClose(main_window)) { //As long as the window shouldnt be closed yet...
         camera.directionUpdate(directionToLook);	// change direction of camera (LEFT, RIGHT)
 		camera.positionUpdate(positionToGo);		// change position of camera (FORWARD, BACK)
-		drawScene(window);							//Execute drawing procedure
+		drawScene(main_window);							//Execute drawing procedure
 		glfwPollEvents();							//Process callback procedures corresponding to the events that took place up to now
 	}
 
-	glfwDestroyWindow(window);			//Delete OpenGL context and the window.
+	glfwDestroyWindow(main_window);			//Delete OpenGL context and the window.
 	glfwTerminate();					//Free GLFW resources
 	exit(EXIT_SUCCESS);
 }
