@@ -228,10 +228,10 @@ void SceneBuilder::BuildScene(mat4 V)
     glMaterialfv(GL_FRONT, GL_SPECULAR, white);
     glMaterialfv(GL_FRONT, GL_SHININESS, polished);
     glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA,GL_ONE);      // transparency
+    glBlendFunc( GL_SRC_ALPHA,GL_DST_COLOR);      // transparency
 
     // ----------------------------CURACAO BOTTLES------------------------
-    glColor3f(0.0f, 0.0f, 1.0f);        // blue
+    glColor3f(0.0f, 0.0f, 0.5f);        // blue
     glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.8f, 0.82f,  5.6f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
     glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(0.6f, 0.82f,  5.6f), vec3(0.1f, 0.1f, 0.1f))));
@@ -251,8 +251,19 @@ void SceneBuilder::BuildScene(mat4 V)
     glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.8f, 0.82f,  5.6f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
 
+    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.9f, 0.87f,  3.1f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-1.9f, 0.87f,  -2.0f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.4f, 0.87f,  -2.0f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-1.9f, 0.87f,  -4.0f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.4f, 0.87f,  -4.0f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
+
     // ---------------------------WINE BOTTLE 2------------------------------
-    glColor3f(0.0f, 1.0f, 0.0f);    // green
+    glColor3f(0.0f, 0.3f, 0.1f);    // green
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.6f, 1.67f,  -3.9f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.6f, 1.67f,  -4.0f), vec3(0.1f, 0.1f, 0.1f))));
@@ -294,7 +305,7 @@ void SceneBuilder::BuildScene(mat4 V)
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.6f, 1.67f,  -5.8f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
 
-    glColor3f(0.8f, 0.49f, 0.19f);      // gold
+    // green
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.6f, 0.67f,  -3.9f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.6f, 0.67f,  -4.0f), vec3(0.1f, 0.1f, 0.1f))));
@@ -336,7 +347,7 @@ void SceneBuilder::BuildScene(mat4 V)
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-0.6f, 0.67f,  -5.8f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
 
-    glColor3f(0.9f, 0.67f, 0.91f);      // plum
+    glColor3f(0.2f, 0.1f, 0.1f); //dark brown almost black
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(3.5f, 0.95f,  4.3f), vec3(0.1f, 0.13f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(4.5f, 0.95f,  2.7f), vec3(0.1f, 0.13f, 0.1f))));
@@ -346,18 +357,6 @@ void SceneBuilder::BuildScene(mat4 V)
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(6.5f, 0.95f,  2.7f), vec3(0.1f, 0.13f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
 
-    // -----------------------------CURACAO BOTTLES--------------------------------------
-    glColor3f(1.0f, 0.5f, 0.0f);        // orange
-    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.9f, 0.87f,  3.1f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-1.9f, 0.87f,  -2.0f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.4f, 0.87f,  -2.0f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-1.9f, 0.87f,  -4.0f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[1].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.4f, 0.87f,  -4.0f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
 
     // ---------------------------WINE BOTTLE 2------------------------------
     glColor3f(0.18f, 0.3f, 0.18f);        // dark green
@@ -488,48 +487,7 @@ void SceneBuilder::BuildScene(mat4 V)
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(5.0f, 0.7f,  5.0f), vec3(0.1f, 0.08f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
 
-    glColor3f(0.6f, 0.5f, 0.39f);       // brown2
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.9f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.9f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.9f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
-    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-
     // ---------------------------WINE BOTTLE 3------------------------------
-    // brown2
     glColor3f(0.36f, 0.20f, 0.09f);         // chocolate
     glLoadMatrixf(value_ptr(V*Adjust(objects[6].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.1f, 0.87f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[6].outVert, objects[6].outNorm, objects[6].outUV);
@@ -594,7 +552,7 @@ void SceneBuilder::BuildScene(mat4 V)
     DrawObject(objects[1].outVert, objects[1].outNorm, objects[1].outUV);
 
     //-------------------WINE BOTTLE 2------------------------------------------
-    glColor3f(1.0f, 0.0f, 0.0f);        // red
+    glColor3f(0.5f, 0.0f, 0.0f);        // red
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.2f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.4f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
@@ -774,6 +732,47 @@ void SceneBuilder::BuildScene(mat4 V)
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(5.5f, 0.77f,  2.7f), vec3(0.1f, 0.15f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(6.5f, 0.77f,  4.3f), vec3(0.1f, 0.15f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+
+    glBlendFunc( GL_SRC_ALPHA,GL_ONE);
+    glColor3f(0.1f, 0.1f, 0.1f); //white glass
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.9f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-5.9f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-6.9f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.1f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.3f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.5f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
+    DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-7.7f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f))));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
 
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_specular);
