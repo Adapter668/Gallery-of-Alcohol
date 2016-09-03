@@ -52,7 +52,7 @@ mat4 SceneBuilder::Adjust(mat4 M, vec3 r, vec3 t, vec3 s, int type)  {
 	M = translate(M, t);
 	M = scale(M, s);
 
-    if (load_first_models) addObjectsToAllModelsCoordinate(M, r, t, s);
+    if (load_first_models)  addObjectsToArray(M, r, t, s);
 
 	return M;
 }
@@ -592,7 +592,7 @@ void SceneBuilder::BuildScene(mat4 V)
 
     //-------------------WINE BOTTLE 2------------------------------------------
     glColor3f(0.5f, 0.0f, 0.0f);        // red
-    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.2f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f), WINE
+    glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.2f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f), WINE_BOTTLE2)));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);
     glLoadMatrixf(value_ptr(V*Adjust(objects[5].M, vec3(0.0f, 0.0f, 0.0f), vec3(-4.4f, 1.67f,  0.3f), vec3(0.1f, 0.1f, 0.1f), WINE_BOTTLE2)));
     DrawObject(objects[5].outVert, objects[5].outNorm, objects[5].outUV);

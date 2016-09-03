@@ -198,4 +198,26 @@ void Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int 
     // when the mouse is in the centre of the screen, and less significant z values when the mouse moves around the screen.
     // This will depend on the aspect ratio, and field-of-view defined in the view and projection matrices.
     // We now have a ray that we can compare with surfaces in world space.
+
+    // TODO ray collision 
+    glm::vec3 far = position;
+    glm::vec3 close = position;
+    far = position + ray_wor*DISTANCE_IN_COLLISION*SPEED_OF_ROTATE;
+    cout << "\nPosition:\t x= " << position.x << " y= " << position.y << " z= " << position.z << "\n";
+    cout << "NewPosition:\t x= " << far.x << " y= " << far.y << " z= " << far.z << "\n";
+    cout << "Ray:\t\tx= " << ray_wor.x << " y= " << ray_wor.y << " z= " << ray_wor.z  << "\n";
+
+    int counter =0;
+    for (auto bottle: SceneBuilder::all_bottles_coordinates) {
+        if ( far.x >= (bottle.center.x - bottle.width ) and
+                far.x <= (bottle.center.x + bottle.width ) and
+                far.z >= (bottle.center.z - bottle.width ) and
+                far.z <= (bottle.center.z + bottle.width ) and
+                far.y >= (bottle.center.y - bottle.width) and
+                far.y <= (bottle.center.y + bottle.width ) ) {
+            cout << "Bottle " << counter << "\n";
+            break;
+        }
+        counter++;
+    }
 }
