@@ -205,13 +205,16 @@ int Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int w
     // This will depend on the aspect ratio, and field-of-view defined in the view and projection matrices.
     // We now have a ray that we can compare with surfaces in world space.
 
-    int chosen_bottle, counter = 0;
+    int chosen_bottle, counter = -1;
     float distance_to_closer_chosen_bottle;
     bool founded_earlier = false;
     for (bottle cur_bottle: SceneBuilder::all_bottles_coordinates) {
+        counter++;
         glm::vec3 distance = cur_bottle.center - position;
-        float dot_product = dot(distance.x, ray_wor.x) + dot(distance.y, ray_wor.y) + dot(distance.z, ray_wor.z);
+//        float dot_product = dot(distance.x, ray_wor.x) + dot(distance.y, ray_wor.y) + dot(distance.z, ray_wor.z);
+        float dot_product = dot(distance.x , ray_wor.x) + dot(distance.y, ray_wor.y) + dot(distance.z, ray_wor.z);
         if (dot_product < 0) {          // object is behind the camera
+            cout  << counter <<  " ";
             continue;
         }
         else {      // object is in front of camera
@@ -219,7 +222,7 @@ int Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int w
             float distance_length = sqrt((distance.x*distance.x) + (distance.y*distance.y) + (distance.z * distance.z));
             float distance_to_projection_of_center = sin(angle) * distance_length;
             if (distance_to_projection_of_center <= cur_bottle.width) {     // collision detected
-                //cout << "Collision with bottle " << counter  <<"\n";
+                cout << "\nCollision with bottle " << counter  <<"\n";
                 if (!founded_earlier) {
                     distance_to_closer_chosen_bottle = distance_length;
                     chosen_bottle = counter;
@@ -231,9 +234,8 @@ int Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int w
                 }
             }
         }
-        counter++;
     }
-    cout << "Collision with bottle " << chosen_bottle  <<"\n";
+    cout << "Collision with bottle " << chosen_bottle  <<"\n\n";
     if (!founded_earlier)   return NO_BOTTLE_COLLISION;
     return chosen_bottle;
 }

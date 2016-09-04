@@ -1,9 +1,15 @@
+#include <thread>
 #include "special_effects.h"
 
 Special_effects::Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder) {
     this->sceneBuilder = sceneBuilder;
     this->camera_ptr = camera_ptr;
 } ;
+
+void wait(int seconds) {
+    clock_t end_of_waiting = clock() + seconds * CLOCKS_PER_SEC;
+    while (clock() < end_of_waiting) {}
+}
 
 void Special_effects::bottleDetected(int bottle_number) {
     // TODO chosen bottle disappears
@@ -72,4 +78,5 @@ void Special_effects::colorChange() {
         glEnable(GL_LIGHT1);
         cout << "Color change on\n";
     }
+
 }
