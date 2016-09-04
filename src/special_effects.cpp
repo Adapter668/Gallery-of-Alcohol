@@ -9,6 +9,7 @@ Special_effects::Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder)
 void wait(int seconds) {
     clock_t end_of_waiting = clock() + seconds * CLOCKS_PER_SEC;
     while (clock() < end_of_waiting) {}
+    terminate();
 }
 
 void Special_effects::bottleDetected(int bottle_number) {
@@ -31,7 +32,6 @@ void Special_effects::bottleDetected(int bottle_number) {
             break;
     }
 }
-
 
 void Special_effects::swaying(short type) {
     vector<float> outVert, outNorm, outUV;

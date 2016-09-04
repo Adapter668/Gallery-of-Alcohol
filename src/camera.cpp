@@ -2,7 +2,6 @@
 #include "constants.h"
 #include <glm/gtx/transform.hpp>
 
-
 Camera::Camera() :
         //position(0.0f, 1.0f, 0.0f),
         position(1.0f, 1.0f, 0.8f),
@@ -214,7 +213,6 @@ int Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int w
 //        float dot_product = dot(distance.x, ray_wor.x) + dot(distance.y, ray_wor.y) + dot(distance.z, ray_wor.z);
         float dot_product = dot(distance.x , ray_wor.x) + dot(distance.y, ray_wor.y) + dot(distance.z, ray_wor.z);
         if (dot_product < 0) {          // object is behind the camera
-            cout  << counter <<  " ";
             continue;
         }
         else {      // object is in front of camera
@@ -222,7 +220,7 @@ int Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int w
             float distance_length = sqrt((distance.x*distance.x) + (distance.y*distance.y) + (distance.z * distance.z));
             float distance_to_projection_of_center = sin(angle) * distance_length;
             if (distance_to_projection_of_center <= cur_bottle.width) {     // collision detected
-                cout << "\nCollision with bottle " << counter  <<"\n";
+                //cout << "\nCollision with bottle " << counter  <<"\n";
                 if (!founded_earlier) {
                     distance_to_closer_chosen_bottle = distance_length;
                     chosen_bottle = counter;
@@ -235,7 +233,7 @@ int Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int w
             }
         }
     }
-    cout << "Collision with bottle " << chosen_bottle  <<"\n\n";
     if (!founded_earlier)   return NO_BOTTLE_COLLISION;
+    else cout << "Collision with bottle " << chosen_bottle  <<"\n\n";
     return chosen_bottle;
 }
