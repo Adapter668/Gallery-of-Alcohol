@@ -52,12 +52,6 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_S || key == GLFW_KEY_DOWN) {
 			positionToGo = BACK;
 		}
-        // additional:
-        if (key == GLFW_KEY_1) special_effects.penetrability();
-        if (key == GLFW_KEY_2) special_effects.changePerspective();
-        if (key == GLFW_KEY_3) special_effects.upsideDown();
-        if (key == GLFW_KEY_4) special_effects.closePerspective();
-        if (key == GLFW_KEY_5) special_effects.colorChange();
 	}
 	if (action == GLFW_RELEASE) { //If the user released a key, zero the appropriate angular speed
 		if (key == GLFW_KEY_W || key == GLFW_KEY_S || key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) positionToGo = NONE;
@@ -67,11 +61,14 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 
 void mouse_click_callback(GLFWwindow* window, int button, int action, int mods) {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        int window_width, window_height;
+        int window_width, window_height, chosen_bottle;
         double mouse_x, mouse_y;
         glfwGetWindowSize(window, &window_width, &window_height);
         glfwGetCursorPos(window, &mouse_x, &mouse_y);
-        camera.mousePicking(mouse_x, mouse_y, window_width, window_height);
+        chosen_bottle = camera.mousePicking(mouse_x, mouse_y, window_width, window_height);
+        if (chosen_bottle != NO_BOTTLE_COLLISION) {
+            special_effects.bottleDetected(chosen_bottle);
+        }
     }
 }
 

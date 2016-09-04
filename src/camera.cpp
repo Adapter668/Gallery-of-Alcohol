@@ -161,7 +161,13 @@ void Camera::mainLight() {
     glLightfv(GL_LIGHT3, GL_POSITION, position);
 }
 
-void Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int window_height) {
+float angleBetween( glm::vec3 a, glm::vec3 b){
+    glm::vec3 da=glm::normalize(a);
+    glm::vec3 db=glm::normalize(b);
+    return acos(glm::dot(da, db));
+}
+
+int Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int window_height) {
     // NORMALISED DEVICE COORDINATES
     // range [-1:1, -1:1, -1:1]
     float x = (2.0f * mouse_x) / window_width - 1.0f;
@@ -199,25 +205,35 @@ void Camera::mousePicking(double mouse_x, double mouse_y, int window_width, int 
     // This will depend on the aspect ratio, and field-of-view defined in the view and projection matrices.
     // We now have a ray that we can compare with surfaces in world space.
 
-    // TODO ray collision 
-    glm::vec3 far = position;
-    glm::vec3 close = position;
-    far = position + ray_wor*DISTANCE_IN_COLLISION*SPEED_OF_ROTATE;
-    cout << "\nPosition:\t x= " << position.x << " y= " << position.y << " z= " << position.z << "\n";
-    cout << "NewPosition:\t x= " << far.x << " y= " << far.y << " z= " << far.z << "\n";
-    cout << "Ray:\t\tx= " << ray_wor.x << " y= " << ray_wor.y << " z= " << ray_wor.z  << "\n";
-
-    int counter =0;
-    for (auto bottle: SceneBuilder::all_bottles_coordinates) {
-        if ( far.x >= (bottle.center.x - bottle.width ) and
-                far.x <= (bottle.center.x + bottle.width ) and
-                far.z >= (bottle.center.z - bottle.width ) and
-                far.z <= (bottle.center.z + bottle.width ) and
-                far.y >= (bottle.center.y - bottle.width) and
-                far.y <= (bottle.center.y + bottle.width ) ) {
-            cout << "Bottle " << counter << "\n";
-            break;
+    int chosen_bottle, counter = 0;
+    float distance_to_closer_chosen_bottle;
+    bool founded_earlier = false;
+    for (bottle cur_bottle: SceneBuilder::all_bottles_coordinates) {
+        glm::vec3 distance = cur_bottle.center - position;
+        float dot_product = dot(distance.x, ray_wor.x) + dot(distance.y, ray_wor.y) + dot(distance.z, ray_wor.z);
+        if (dot_product < 0) {          // object is behind the camera
+            continue;
+        }
+        else {      // object is in front of camera
+            float angle = angleBetween(distance,ray_wor);
+            float distance_length = sqrt((distance.x*distance.x) + (distance.y*distance.y) + (distance.z * distance.z));
+            float distance_to_projection_of_center = sin(angle) * distance_length;
+            if (distance_to_projection_of_center <= cur_bottle.width) {     // collision detected
+                //cout << "Collision with bottle " << counter  <<"\n";
+                if (!founded_earlier) {
+                    distance_to_closer_chosen_bottle = distance_length;
+                    chosen_bottle = counter;
+                    founded_earlier = true;
+                }
+                if (distance_to_closer_chosen_bottle > distance_length) {
+                    distance_to_closer_chosen_bottle = distance_length;
+                    chosen_bottle = counter;
+                }
+            }
         }
         counter++;
     }
+    cout << "Collision with bottle " << chosen_bottle  <<"\n";
+    if (!founded_earlier)   return NO_BOTTLE_COLLISION;
+    return chosen_bottle;
 }

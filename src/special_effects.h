@@ -9,16 +9,18 @@ private:
     Camera* camera_ptr;
     SceneBuilder* sceneBuilder;
 
-public:
-    Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder);
-    ~Special_effects() {} ;
-
     void swaying(short type);
     void penetrability();
     void changePerspective(float aspect = 5.0f);
     void upsideDown();
     void closePerspective(float angle = 15.0f);
     void colorChange();
+
+public:
+    Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder);
+    ~Special_effects() {} ;
+
+    void bottleDetected(int bottle_number);
 };
 
 

@@ -5,6 +5,28 @@ Special_effects::Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder)
     this->camera_ptr = camera_ptr;
 } ;
 
+void Special_effects::bottleDetected(int bottle_number) {
+    // TODO chosen bottle disappears
+    // TODO flash light effect
+    bottle* chosen_bottle;
+    chosen_bottle = &SceneBuilder::all_bottles_coordinates[bottle_number];
+    switch (chosen_bottle->type) {
+        case CURACAO_BOTTLE:
+            colorChange();
+            break;
+        case  WHISKY_BOTTLE:
+            changePerspective();
+            break;
+        case  WINE_BOTTLE2:
+            upsideDown();
+            break;
+        case  WINE_BOTTLE3:
+            closePerspective();
+            break;
+    }
+}
+
+
 void Special_effects::swaying(short type) {
     vector<float> outVert, outNorm, outUV;
     double my_time = 0;
