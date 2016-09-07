@@ -12,7 +12,7 @@ private:
     SceneBuilder* sceneBuilder;
 
 
-    void swaying(short type);
+    void swaying();
     void penetrability();
     void changePerspective(float aspect = 5.0f);
     void upsideDown();
@@ -24,7 +24,7 @@ public:
     ~Special_effects() {} ;
 
     void bottleDetected(int bottle_number);
-
+    void stopEffects();
 };
 
 

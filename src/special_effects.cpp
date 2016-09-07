@@ -9,7 +9,7 @@ Special_effects::Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder)
 void wait(int seconds) {
     clock_t end_of_waiting = clock() + seconds * CLOCKS_PER_SEC;
     while (clock() < end_of_waiting) {}
-    terminate();
+    //terminate();
 }
 
 void Special_effects::bottleDetected(int bottle_number) {
@@ -19,30 +19,42 @@ void Special_effects::bottleDetected(int bottle_number) {
     chosen_bottle = &SceneBuilder::all_bottles_coordinates[bottle_number];
     switch (chosen_bottle->type) {
         case CURACAO_BOTTLE:
-            colorChange();
+            if(bottle_number < 10) {
+                colorChange();
+            }
+            else{
+                penetrability();
+            }
             break;
         case  WHISKY_BOTTLE:
             changePerspective();
             break;
         case  WINE_BOTTLE2:
-            upsideDown();
+            if(bottle_number < 95){
+                upsideDown();
+            }
+            else{
+                changePerspective();
+            }
             break;
         case  WINE_BOTTLE3:
-            closePerspective();
+            if(bottle_number < 150) {
+                closePerspective();
+            }
+            else{
+                swaying();
+            }
             break;
     }
 }
 
-void Special_effects::swaying(short type) {
-    vector<float> outVert, outNorm, outUV;
-    double my_time = 0;
-    sceneBuilder->getObjectsOuts(type, outVert, outNorm, outUV);
-    for (int i = 0; i < outVert.size() / 3; i++) {
-        // CUBE MOVEMENT
-        outVert[i * 3] += sin(my_time + outVert[i * 3 + 1]) / 50;
-        my_time += 0.1;
-        // TEXTURE MOVEMENT
-        outUV[i * 2] += sin(my_time + outVert[i * 2 + 1]) / 100;
+void Special_effects::swaying() {
+    sceneBuilder->swaying = !sceneBuilder->swaying;
+    if(sceneBuilder->swaying){
+        cout << "Swaying on\n";
+    }
+    else{
+        cout << "Swaying off\n";
     }
 }
 
@@ -77,6 +89,28 @@ void Special_effects::colorChange() {
     else {
         glEnable(GL_LIGHT1);
         cout << "Color change on\n";
+    }
+
+}
+
+void Special_effects::stopEffects() {
+    if(sceneBuilder->swaying){
+        sceneBuilder->swaying = false;
+    }
+    if(!camera_ptr->collision_on){
+        camera_ptr->collision_on = true;
+    }
+    if (glIsEnabled(GL_LIGHT1)) {
+        glDisable(GL_LIGHT1);
+    }
+    if(!camera_ptr->common_perspective){
+        camera_ptr->different_perspective(5.0f);
+    }
+    if(camera_ptr->upside_down){
+        camera_ptr->upsideDown();
+    }
+    if(camera_ptr->close){
+        camera_ptr->closePerspective(15.0f);
     }
 
 }

@@ -12,6 +12,8 @@
 #include <vector>
 #include <libltdl/lt_system.h>
 #include <stdlib.h>
+#include <cstdlib>
+
 
 #include "constants.h"
 #include "sceneBuilder.h"
@@ -100,6 +102,8 @@ void drawScene(GLFWwindow* window) {
 }
 
 int main(void) {
+	srand(time(NULL));
+	int counter = (rand() %1000) + 500;
 	if (!glfwInit()) { //Initialize GLFW library
 		fprintf(stderr, "Can't initialize GLFW.\n");
 		exit(EXIT_FAILURE);
@@ -127,6 +131,13 @@ int main(void) {
 		camera.positionUpdate(positionToGo);		// change position of camera (FORWARD, BACK)
 		drawScene(main_window);							//Execute drawing procedure
 		glfwPollEvents();							//Process callback procedures corresponding to the events that took place up to now
+		if(counter > 0){
+			counter--;
+		}
+		else{
+			special_effects.stopEffects();
+			counter = (rand() %1000) + 500;
+		}
 	}
 
 	glfwDestroyWindow(main_window);			//Delete OpenGL context and the window.

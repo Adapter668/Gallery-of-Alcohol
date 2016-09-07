@@ -48,6 +48,7 @@ private:
     unsigned width0, height0, width1, height1, width2, height2, width3, height3, width4, height4, width5, height5, width6, height6; //Variables for image size
     bool load_first_models = true;
     bool load_first_bottles = true;
+	double my_time = 0;
 
     mat4 Adjust(mat4 M, vec3 r, vec3 t, vec3 s, int type = CUBE);
     void DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV);
@@ -58,11 +59,13 @@ private:
 public:
     static vector<cuboid> all_cuboid_models_coordinates;
     static vector<bottle> all_bottles_coordinates;
+	bool swaying = false;
 
 	SceneBuilder() { };
 	~SceneBuilder() {};
 	void LoadModelsToMemory();
-	void BuildScene(mat4 V); //it will be the BuildScene procedure, but now is BuildScene
+	void BuildScene(mat4 V);
     void getObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV);
+	void sway(short type);
 };
 
