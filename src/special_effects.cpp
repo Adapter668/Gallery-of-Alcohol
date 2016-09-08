@@ -15,6 +15,7 @@ void wait(int seconds) {
 void Special_effects::bottleDetected(int bottle_number) {
     // TODO chosen bottle disappears
     // TODO flash light effect
+    detection = true;
     bottle* chosen_bottle;
     chosen_bottle = &SceneBuilder::all_bottles_coordinates[bottle_number];
     switch (chosen_bottle->type) {
@@ -112,5 +113,6 @@ void Special_effects::stopEffects() {
     if(camera_ptr->close){
         camera_ptr->closePerspective(15.0f);
     }
+    detection = false;
 
 }

@@ -131,13 +131,14 @@ int main(void) {
 		camera.positionUpdate(positionToGo);		// change position of camera (FORWARD, BACK)
 		drawScene(main_window);							//Execute drawing procedure
 		glfwPollEvents();							//Process callback procedures corresponding to the events that took place up to now
-		if(counter > 0){
-			counter--;
-		}
-		else{
-			special_effects.stopEffects();
-			counter = (rand() %1000) + 500;
-		}
+		if(special_effects.detection) {
+            if (counter > 0) {
+                counter--;
+            } else {
+                special_effects.stopEffects();
+                counter = (rand() % 1000) + 500;
+            }
+        }
 	}
 
 	glfwDestroyWindow(main_window);			//Delete OpenGL context and the window.

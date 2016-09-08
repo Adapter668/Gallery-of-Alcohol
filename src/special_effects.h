@@ -23,6 +23,7 @@ public:
     Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder);
     ~Special_effects() {} ;
 
+    bool detection = false;
     void bottleDetected(int bottle_number);
     void stopEffects();
 };
