@@ -124,10 +124,16 @@ void SceneBuilder::getObjectsOuts(short type, vector<float> &outVert, vector<flo
     outUV = objects[type].outUV;
 }
 
+void SceneBuilder::setObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV) {
+    objects[type].outVert = outVert;
+    objects[type].outNorm = outNorm;
+    objects[type].outUV = outUV;
+}
+
 void SceneBuilder::sway(short type) {
     for (int i = 0; i < objects[type].outVert.size() / 3; i++) {
         // CUBE MOVEMENT
-        objects[type].outVert[i * 3] += sin(my_time + objects[type].outVert[i * 3 + 1]) / 30;
+        objects[type].outVert[i * 3] += sin(my_time + objects[type].outVert[i * 3 + 1]) / 10;
         my_time += 0.1;
         // TEXTURE MOVEMENT
         objects[type].outUV[i * 2] += sin(my_time + objects[type].outVert[i * 2 + 1]) / 20;

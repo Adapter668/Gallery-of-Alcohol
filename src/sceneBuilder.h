@@ -42,7 +42,7 @@ struct bottle {
 class SceneBuilder
 {
 private:
-    furnitureAndBottles objects[2];                                 // array of models types
+
     GLuint tex;
     std::vector<unsigned char> image0, image1, image2, image3, image4, image5, image6; //Allocate a vector for image data
     unsigned width0, height0, width1, height1, width2, height2, width3, height3, width4, height4, width5, height5, width6, height6; //Variables for image size
@@ -57,6 +57,7 @@ private:
     void addBottlesToArray(mat4 M, vec3 r, vec3 t, vec3 s, int type);
 
 public:
+    furnitureAndBottles objects[2];                                 // array of models types
     static vector<cuboid> all_cuboid_models_coordinates;
     static vector<bottle> all_bottles_coordinates;
 	bool swaying = false;
@@ -66,6 +67,7 @@ public:
 	void LoadModelsToMemory();
 	void BuildScene(mat4 V);
     void getObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV);
+    void setObjectsOuts(short type, vector<float> &outVert, vector<float> &outNorm, vector<float> &outUV);
 	void sway(short type);
 };
 

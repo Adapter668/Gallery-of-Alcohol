@@ -24,6 +24,9 @@ public:
     ~Special_effects() {} ;
 
     bool detection = false;
+    vector<float> outVert[10];
+    vector<float> outNorm[10];
+    vector<float> outUV[10];
     void bottleDetected(int bottle_number);
     void stopEffects();
 };
