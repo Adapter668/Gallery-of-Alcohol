@@ -12,6 +12,7 @@ private:
     SceneBuilder* sceneBuilder;
 
 
+
     void swaying(short type);
     void penetrability();
     void changePerspective(float aspect = 5.0f);
