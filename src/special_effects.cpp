@@ -1,4 +1,3 @@
-#include <thread>
 #include "special_effects.h"
 
 Special_effects::Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder) {
@@ -98,7 +97,7 @@ void Special_effects::stopEffects() {
         cout << "Color change off\n";
     }
     if(!camera_ptr->common_perspective){
-        camera_ptr->different_perspective(5.0f);
+        camera_ptr->different_perspective(1.0f);
         cout << "Different perspective off\n";
     }
     if(camera_ptr->upside_down){
@@ -106,7 +105,7 @@ void Special_effects::stopEffects() {
         cout << "Upside down off\n";
     }
     if(camera_ptr->close){
-        camera_ptr->closePerspective(15.0f);
+        camera_ptr->closePerspective(50.0f);
         cout << "Close off\n";
     }
     detection = false;

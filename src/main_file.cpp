@@ -4,14 +4,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include <stdio.h>
 #include <iostream>
 #include <vector>
-#include <libltdl/lt_system.h>
-#include <stdlib.h>
 #include <cstdlib>
 
 

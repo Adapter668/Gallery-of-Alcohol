@@ -138,11 +138,9 @@ void SceneBuilder::sway(short type) {
         // TEXTURE MOVEMENT
         objects[type].outUV[i * 2] += sin(my_time + objects[type].outVert[i * 2 + 1]) / 20;
     }
-
 }
 
-void SceneBuilder::BuildScene(mat4 V)
-{
+void SceneBuilder::BuildScene(mat4 V)  {
     GLfloat mat_emission[] = {0.3, 0.2, 0.2, 0.0};
     GLfloat glass[] = { 0.3f, 0.3f, 0.3f, 0.6f };       // ambient and diffuse
     const GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };     // specular
@@ -151,15 +149,6 @@ void SceneBuilder::BuildScene(mat4 V)
     GLfloat no_emission[] = {0.0, 0.0, 0.0, 1.0};
     GLfloat no_specular[] = {0.0, 0.0, 0.0, 1.0};
     GLfloat no_shininess[] = {0.0};
-
-//    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-//    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-//    glMaterialfv(GL_FRONT, GL_SHININESS, low_shininess);
-
-    //    glMaterialfv(GL_FRONT, GL_EMISSION, no_emission);
-    //    glMaterialfv(GL_FRONT, GL_SPECULAR, no_specular);
-//    glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
-
 
     if(swaying) {
         sway(CUBE);

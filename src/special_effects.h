@@ -2,9 +2,10 @@
 #define GALLERY_OF_ALCOHOL_SPECIAL_EFFECTS_H
 
 #include <time.h>
-#include <functional>
 #include "camera.h"
 #include "sceneBuilder.h"
+
+using namespace std;
 
 class Special_effects {
 private:

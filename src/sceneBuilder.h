@@ -49,6 +49,7 @@ private:
     bool load_first_models = true;
     bool load_first_bottles = true;
 	double my_time = 0;
+    int chosen_bottle = NO_BOTTLE_COLLISION;
 
     mat4 Adjust(mat4 M, vec3 r, vec3 t, vec3 s, int type = CUBE);
     void DrawObject(vector<float> outVert, vector<float> outNorm, vector<float> outUV);
