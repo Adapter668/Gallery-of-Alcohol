@@ -1,5 +1,4 @@
 #include "camera.h"
-#include "constants.h"
 #include <glm/gtx/transform.hpp>
 
 Camera::Camera() :
@@ -81,7 +80,7 @@ void Camera::positionUpdate() {
 bool collisionDetected(glm::vec3 newPosition, cuboid object) {
     if (    (newPosition.x >= object.front_2.x and newPosition.x <= object.front_1.x) and
             (newPosition.z >= object.front_2.z and newPosition.z <= object.back_2.z)  and
-            ((newPosition.y) >= object.front_3.y  and (object.front_2.y) > 0.3f) ) {
+            ((newPosition.y) >= object.front_3.y)  ) {
         return true;        // collision detected
     }
     else return false;  // there is no detected collision

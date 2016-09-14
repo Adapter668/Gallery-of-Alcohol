@@ -6,9 +6,6 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <vector>
-#include <cstdlib>
-
 
 #include "constants.h"
 #include "sceneBuilder.h"
@@ -106,8 +103,8 @@ int main(void) {
 	}
 	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
-	//window = glfwCreateWindow(mode->width, mode->height, "Alcohol Gallery", primaryMonitor, NULL);  //Create a window 500pxx500px titled "OpenGL" and an OpenGL context associated with it.
-    main_window = glfwCreateWindow(800, 600, "Alcohol Gallery", NULL, NULL);
+	main_window = glfwCreateWindow(mode->width, mode->height, "Alcohol Gallery", primaryMonitor, NULL);  //Create a window 500pxx500px titled "OpenGL" and an OpenGL context associated with it.
+    //main_window = glfwCreateWindow(800, 600, "Alcohol Gallery", NULL, NULL);
     if (!main_window) {			//If no window is opened then close the program
 		glfwTerminate();
 		exit(EXIT_FAILURE);

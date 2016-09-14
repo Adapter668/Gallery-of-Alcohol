@@ -5,13 +5,13 @@ vector<cuboid> SceneBuilder::all_cuboid_models_coordinates;
 vector<bottle> SceneBuilder::all_bottles_coordinates;
 
 void SceneBuilder::LoadModelsToMemory()  {
-	objects[CUBE].mesh.LoadMesh("cube.obj", objects[0].outVert, objects[0].outNorm, objects[0].outUV);
-	objects[CURACAO_BOTTLE].mesh.LoadMesh("bourbonBottle.obj", objects[1].outVert, objects[1].outNorm, objects[1].outUV);
-    //objects[WHISKEY_BOTTLE].mesh.LoadMesh("whiskeyBottle.obj", objects[2].outVert, objects[2].outNorm, objects[2].outUV);
-    objects[WHISKY_BOTTLE].mesh.LoadMesh("whiskyBottle.obj", objects[3].outVert, objects[3].outNorm, objects[3].outUV);
-    //objects[WINE_BOTTLE].mesh.LoadMesh("wineBottle.obj", objects[4].outVert, objects[4].outNorm, objects[4].outUV);
-    objects[WINE_BOTTLE2].mesh.LoadMesh("wineBottle2.obj", objects[5].outVert, objects[5].outNorm, objects[5].outUV);
-    objects[WINE_BOTTLE3].mesh.LoadMesh("wineBottle3.obj", objects[6].outVert, objects[6].outNorm, objects[6].outUV);
+	objects[CUBE].mesh.LoadMesh((char*)"cube.obj", objects[0].outVert, objects[0].outNorm, objects[0].outUV);
+	objects[CURACAO_BOTTLE].mesh.LoadMesh((char*)"bourbonBottle.obj", objects[1].outVert, objects[1].outNorm, objects[1].outUV);
+    //objects[WHISKEY_BOTTLE].mesh.LoadMesh((char*)"whiskeyBottle.obj", objects[2].outVert, objects[2].outNorm, objects[2].outUV);
+    objects[WHISKY_BOTTLE].mesh.LoadMesh((char*)"whiskyBottle.obj", objects[3].outVert, objects[3].outNorm, objects[3].outUV);
+    //objects[WINE_BOTTLE].mesh.LoadMesh((char*)"wineBottle.obj", objects[4].outVert, objects[4].outNorm, objects[4].outUV);
+    objects[WINE_BOTTLE2].mesh.LoadMesh((char*)"wineBottle2.obj", objects[5].outVert, objects[5].outNorm, objects[5].outUV);
+    objects[WINE_BOTTLE3].mesh.LoadMesh((char*)"wineBottle3.obj", objects[6].outVert, objects[6].outNorm, objects[6].outUV);
 
 
     //Reading and import image and place in initOpenGLProgram
@@ -141,12 +141,9 @@ void SceneBuilder::sway(short type) {
 }
 
 void SceneBuilder::BuildScene(mat4 V)  {
-    GLfloat mat_emission[] = {0.3, 0.2, 0.2, 0.0};
     GLfloat glass[] = { 0.3f, 0.3f, 0.3f, 0.6f };       // ambient and diffuse
     const GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };     // specular
     const GLfloat polished[] = { 100.0 };           // shininess
-
-    GLfloat no_emission[] = {0.0, 0.0, 0.0, 1.0};
     GLfloat no_specular[] = {0.0, 0.0, 0.0, 1.0};
     GLfloat no_shininess[] = {0.0};
 
