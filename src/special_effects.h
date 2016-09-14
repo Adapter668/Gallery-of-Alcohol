@@ -11,7 +11,7 @@ class Special_effects {
 private:
     Camera* camera_ptr;
     SceneBuilder* sceneBuilder;
-
+    int drunk_turning_counter = NO_BOTTLE_COLLISION;
 
     void swaying();
     void penetrability();
@@ -19,6 +19,8 @@ private:
     void upsideDown();
     void closePerspective(float angle = 15.0f);
     void colorChange();
+
+
 
 public:
     Special_effects(Camera* camera_ptr, SceneBuilder* sceneBuilder);
@@ -28,8 +30,11 @@ public:
     vector<float> outVert[10];
     vector<float> outNorm[10];
     vector<float> outUV[10];
+    bool proper_direction_to_go = true;
+
     void bottleDetected(int bottle_number);
     void stopEffects();
+    void drunkTurning();
 };
 
 

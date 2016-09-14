@@ -40,6 +40,15 @@ void Special_effects::bottleDetected(int bottle_number) {
             }
             break;
     }
+    // change direction to go effect:
+    if (camera_ptr->upside_down and camera_ptr->close) {
+        proper_direction_to_go = false;
+    }
+    // drunkTurning
+    // if colorChange and swaying
+    if (glIsEnabled(GL_LIGHT1) and sceneBuilder->swaying == true) {
+        drunk_turning_counter =0;
+    }
 }
 
 void Special_effects::swaying() {
@@ -79,6 +88,24 @@ void Special_effects::colorChange() {
     }
 }
 
+void Special_effects::drunkTurning() {
+    if (drunk_turning_counter != NO_BOTTLE_COLLISION) {
+        if (drunk_turning_counter <= 0 or camera_ptr->directionToLook == NONE) {
+            camera_ptr->directionToLook = LEFT;
+            drunk_turning_counter = WIDTH_OF_DRUNK_TURNING + 1;
+            //drunk_turning_counter = 1;
+        }
+        else if (drunk_turning_counter >= WIDTH_OF_DRUNK_TURNING) {
+            camera_ptr->directionToLook = RIGHT;
+            drunk_turning_counter = WIDTH_OF_DRUNK_TURNING - 1;
+        }
+        else if (drunk_turning_counter < WIDTH_OF_DRUNK_TURNING and camera_ptr->directionToLook == LEFT)
+            drunk_turning_counter ++;
+        else if (drunk_turning_counter <= WIDTH_OF_DRUNK_TURNING and  camera_ptr->directionToLook == RIGHT)
+            drunk_turning_counter--;
+    }
+}
+
 void Special_effects::stopEffects() {
     if(sceneBuilder->swaying){
         sceneBuilder->swaying = false;
@@ -109,6 +136,9 @@ void Special_effects::stopEffects() {
         cout << "Close off\n";
     }
     detection = false;
+    proper_direction_to_go = true;
+    // turn off drunkTurning effect:
+    drunk_turning_counter = NO_BOTTLE_COLLISION;
+    camera_ptr->directionToLook = NONE;
     cout << "Effects stop\n";
-
 }

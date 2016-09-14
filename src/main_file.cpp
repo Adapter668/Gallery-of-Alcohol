@@ -22,8 +22,7 @@ GLFWwindow*  main_window;				// Pointer to object that represents the applicatio
 Camera              camera;					// Camera's declaration
 SceneBuilder     sceneBuilder;
 Special_effects  special_effects(&camera, &sceneBuilder);
-short                    directionToLook = NONE;	// Helps moving camera
-short                     positionToGo = NONE;		// Helps moving camera
+
 
 // CALLBACK PROCEDURES:
 void error_callback(int error, const char* description) {
@@ -38,21 +37,23 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 			exit(EXIT_SUCCESS);
 		}
 		if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT) {
-			directionToLook = LEFT;
+            if (!special_effects.proper_direction_to_go) camera.directionToLook = RIGHT;
+			else camera.directionToLook = LEFT;
 		}
 		if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT) {
-			directionToLook = RIGHT;
+            if (!special_effects.proper_direction_to_go) camera.directionToLook = LEFT;
+			else camera.directionToLook = RIGHT;
 		}
 		if (key == GLFW_KEY_W || key == GLFW_KEY_UP) {
-			positionToGo = FORWARD;
+			camera.positionToGo = FORWARD;
 		}
 		if (key == GLFW_KEY_S || key == GLFW_KEY_DOWN) {
-			positionToGo = BACK;
+			camera.positionToGo = BACK;
 		}
 	}
 	if (action == GLFW_RELEASE) { //If the user released a key, zero the appropriate angular speed
-		if (key == GLFW_KEY_W || key == GLFW_KEY_S || key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) positionToGo = NONE;
-		if (key == GLFW_KEY_A || key == GLFW_KEY_D || key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT) directionToLook = NONE;
+		if (key == GLFW_KEY_W || key == GLFW_KEY_S || key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) camera.positionToGo = NONE;
+		if (key == GLFW_KEY_A || key == GLFW_KEY_D || key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT) camera.directionToLook = NONE;
 	}
 }
 
@@ -122,11 +123,12 @@ int main(void) {
 
 	//**********MAIN APPLICATION LOOP: **************
 	while (!glfwWindowShouldClose(main_window)) { //As long as the window shouldnt be closed yet...
-        camera.directionUpdate(directionToLook);	// change direction of camera (LEFT, RIGHT)
-		camera.positionUpdate(positionToGo);		// change position of camera (FORWARD, BACK)
+        camera.directionUpdate();	// change direction of camera (LEFT, RIGHT)
+		camera.positionUpdate();		// change position of camera (FORWARD, BACK)
 		drawScene(main_window);							//Execute drawing procedure
 		glfwPollEvents();							//Process callback procedures corresponding to the events that took place up to now
 		if(special_effects.detection) {
+            special_effects.drunkTurning();
             if (counter > 0) {
                 counter--;
             } else {

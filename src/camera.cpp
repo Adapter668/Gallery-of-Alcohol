@@ -19,16 +19,16 @@ glm::mat4 Camera::getWorldToViewMatrix() const {
 	return lookAt(position, position + viewDirection, UP);
 }
 
-void Camera::directionUpdate(short direction) {
+void Camera::directionUpdate() {
     glm::vec3 newDirectionToDetectCollision = viewDirection;
     glm::vec3 newPositionToDetectCollision =position;
-	if (direction == LEFT) {
+	if (directionToLook == LEFT) {
         newDirectionToDetectCollision = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
         newPositionToDetectCollision = position + newDirectionToDetectCollision * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
         if (!checkIfPossibleToMove(newPositionToDetectCollision)) return;
 		viewDirection = glm::mat3(glm::rotate(SPEED_OF_ROTATE, UP)) * viewDirection;
 	}
-	if (direction == RIGHT) {
+	if (directionToLook == RIGHT) {
         newDirectionToDetectCollision = glm::mat3(glm::rotate(-SPEED_OF_ROTATE, UP)) * viewDirection;
         newPositionToDetectCollision = position + newDirectionToDetectCollision * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
         if (!checkIfPossibleToMove(newPositionToDetectCollision)) return;
@@ -63,14 +63,14 @@ void Camera::lights() {
     mainLight();
 }
 
-void Camera::positionUpdate(short way) {
+void Camera::positionUpdate() {
     glm::vec3 newPositionToDetectCollision =position;
     glm::vec3 newPositionToGo = position;
-    if (way == FORWARD) {
+    if (positionToGo == FORWARD) {
         newPositionToDetectCollision = position + viewDirection * DISTANCE_IN_COLLISION *SPEED_OF_ROTATE;
         newPositionToGo = position + viewDirection *SPEED_OF_ROTATE;
     }
-    if (way == BACK) {
+    if (positionToGo == BACK) {
         newPositionToDetectCollision = position - viewDirection* DISTANCE_IN_COLLISION * SPEED_OF_ROTATE;
         newPositionToGo = position - viewDirection *SPEED_OF_ROTATE;
     }

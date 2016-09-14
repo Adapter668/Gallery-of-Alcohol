@@ -30,5 +30,7 @@ const float PI = 3.141592653589793f;
 #define WIDTH_OF_WINE_2             0.8f
 #define WIDTH_OF_WINE_3              0.6f
 
+// EFFECTS
+#define WIDTH_OF_DRUNK_TURNING          15
 
 #endif
